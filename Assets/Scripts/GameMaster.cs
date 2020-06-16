@@ -1,0 +1,169 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
+
+public class GameMaster : MonoBehaviour
+{
+
+    public Unit selectedUnit;
+
+    public int playerTurn = 1;
+    public int movesLeft = 3;
+    public int blueGold;
+    public int redGold;
+
+    public GameObject highlight;
+    public GameObject turnIndicator;
+    public GameObject coinColumns;
+    public Text blueGoldText;
+    public Text redGoldText;
+
+    public GameObject MovesBanner;
+    public HealthIndicator healthIndicator;
+    public Sprite[] blueSprites;
+    public Sprite[] redSprites;
+    public Transform[] crystalsPos;
+
+    Deck deck;
+
+    private bool canTurnChange = true;
+
+    private void Start()
+    {
+        deck = FindObjectOfType<Deck>();
+        blueGoldText.text = "  " + blueGold.ToString();
+        redGoldText.text = " " + redGold.ToString();
+    }
+    public void ResetTiles()
+    {
+        foreach (Tile tile in FindObjectsOfType<Tile>())
+        {
+            tile.Reset();
+        }
+    }
+
+    private void Update()
+    {
+        foreach (Card card in FindObjectsOfType<Card>())
+        {
+            if (card.isDragging == true)
+            {
+                selectedUnit = null;
+                ResetTiles();
+                foreach (Tile tile in FindObjectsOfType<Tile>())
+                {
+                    if (card.cardNumber == 1 && card.price <= blueGold)
+                    {
+                        if (tile.IsClear() && tile.transform.position.x > 0) tile.Highlight();
+                    }
+                    if (card.cardNumber == 2 && card.price <= redGold)
+                    {
+                        if (tile.IsClear() && tile.transform.position.x < 0) tile.Highlight();
+                    }
+                }
+            }
+        }
+            if (selectedUnit != null)
+            {
+                highlight.SetActive(true);
+                highlight.transform.position = selectedUnit.transform.position + new Vector3(0, 0, -3);
+            }
+            else
+            {
+                highlight.SetActive(false);
+            }
+        
+        if (blueGold >= 1000) blueGold = 999;
+        if (redGold >= 1000) redGold = 999;
+
+        if (blueGold < 10) blueGoldText.text = "  " + blueGold.ToString();
+        else if (blueGold < 100) blueGoldText.text = " " + blueGold.ToString();
+        else if (blueGold < 1000) blueGoldText.text = blueGold.ToString();
+        redGoldText.text = redGold.ToString();
+
+    }
+
+    public void UpdateMovesLeft()
+    {
+        movesLeft -= 1;
+
+        if (playerTurn == 1 && movesLeft != 0)
+        {
+            MovesBanner.GetComponent<SpriteRenderer>().sprite = blueSprites[movesLeft - 1];
+        }
+        else if (playerTurn == 2 && movesLeft != 0)
+        {
+            MovesBanner.GetComponent<SpriteRenderer>().sprite = redSprites[movesLeft - 1];
+        }
+
+        if (movesLeft == 0)
+        {
+            movesLeft = 3;
+            StartCoroutine(EndTurn());
+        }
+    }
+
+    public IEnumerator EndTurn()
+    {
+        canTurnChange = false;
+
+        foreach (CoinColumn column in FindObjectsOfType<CoinColumn>())
+        {
+            if (column.columnNumber == 1)
+            {
+                blueGold += 5;
+            }
+            else if (column.columnNumber == 2)
+            {
+                redGold += 5;
+            }
+        }
+
+        if (playerTurn == 1)
+        {
+            turnIndicator.GetComponent<Animator>().SetTrigger("Red");
+            playerTurn = 2;
+        }
+        else if (playerTurn == 2)
+        {
+            turnIndicator.GetComponent<Animator>().SetTrigger("Blue");
+            playerTurn = 1;
+        }
+
+        if (selectedUnit != null)
+        {
+            selectedUnit.selected = false;
+            selectedUnit = null;
+        }
+
+        ResetTiles();
+
+        yield return new WaitForSeconds(1.5f);
+
+        if (playerTurn == 1)
+        {
+            MovesBanner.GetComponent<SpriteRenderer>().sprite = blueSprites[movesLeft - 1];
+
+        }
+        else if (playerTurn == 2)
+        {
+            MovesBanner.GetComponent<SpriteRenderer>().sprite = redSprites[movesLeft - 1];
+        }
+
+        foreach (Unit unit in FindObjectsOfType<Unit>())
+        {
+            unit.hasMoved = false;
+            unit.attackHighlight.SetActive(false);
+            unit.hasAttacked = false;
+            unit.isAttacking = false;
+            if (unit.isElite == true) unit.attacksLeft = 2;
+            else unit.attacksLeft = 1;
+        }
+
+        yield return new WaitForSeconds(1.5f);
+        canTurnChange = true;
+
+    }
+
+}

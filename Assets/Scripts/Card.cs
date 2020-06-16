@@ -1,0 +1,257 @@
+﻿using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Card : MonoBehaviour
+{
+    public bool isDragging;
+    private bool returnHome;
+    private bool hasN;
+    public bool isInDeck;
+    public int slotInDeck;
+    public int cardNumber;
+    public int price;
+    private float hoverAmount;
+    public bool[] isOverSlot;
+    private Vector3 returnPos;
+    private Vector3 normScale;
+    public Vector3 movePositions;
+    public Unit unit;
+    public GameObject coin;
+    public GameObject N1;
+    public GameObject N2;
+
+    Animator camAnim;
+    GameMaster gm;
+    Deck deck;
+
+    private void Start()
+    {
+        returnPos = transform.position;
+        normScale = transform.localScale;
+        deck = FindObjectOfType<Deck>();
+        gm = FindObjectOfType<GameMaster>();
+        camAnim = FindObjectOfType<Camera>().GetComponent<Animator>();
+        Debug.Log(gm.playerTurn);
+    }
+    public void OnMouseDown()
+    {
+        isDragging = true;
+    }
+    public void OnMouseUp()
+    {
+        GameObject slot = GameObject.Find("Slot (" + order(isOverSlot, true).ToString() + ")");
+        if (deck.gameHasStarted == false)
+        {
+            if (count(isOverSlot, true) == 1)
+            {
+                foreach (Card cards in FindObjectsOfType<Card>())
+                {
+                    if (cards.transform.position.x == slot.transform.position.x && cards.transform.position.y == slot.transform.position.y) cards.returnHome = true;
+                }
+                isDragging = false;
+                isInDeck = true;
+                transform.position = slot.transform.position + new Vector3(0, 0, returnPos.z);
+            }
+            else
+            {
+                isDragging = false;
+                returnHome = true;
+                camAnim.SetTrigger("Shake");
+            }
+        }
+        else
+        {
+            movePositions = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 10);
+            foreach (Tile tile in FindObjectsOfType<Tile>())
+            {
+                if (tile.transform.position == movePositions && tile.isWalkable == true)
+                {
+                    Unit instance = Instantiate(unit, tile.transform.position, Quaternion.identity);
+                    instance.spawnedFromCard = true;
+                    instance.price = price;
+                    instance.isInstance = false;
+                    foreach (Card card in FindObjectsOfType<Card>())
+                    {
+                        card.UpdateCardSlot(slotInDeck, cardNumber);
+                    }
+                    slotInDeck = 9;
+                    returnPos = deck.deckSprite.transform.position;
+                }
+                else if (tile.transform.position != movePositions || tile.isWalkable == false)
+                {
+                    isDragging = false;
+                    returnHome = true;
+                    tile.Reset();
+                    camAnim.SetTrigger("Shake");
+                }
+            }
+        }
+    }
+
+    private void OnMouseOver()
+    {
+        hoverAmount = 0.1f;
+
+        if (Input.GetMouseButtonDown(1))
+        {
+            isDragging = false;
+            returnHome = true;
+        }
+    }
+    private void OnMouseExit()
+    {
+        hoverAmount = 0;
+    }
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.name == "Slot (0)") isOverSlot[0] = true;
+        if (collision.name == "Slot (1)") isOverSlot[1] = true;
+        if (collision.name == "Slot (2)") isOverSlot[2] = true;
+        if (collision.name == "Slot (3)") isOverSlot[3] = true;
+        if (collision.name == "Slot (4)") isOverSlot[4] = true;
+        if (collision.name == "Slot (5)") isOverSlot[5] = true;
+        if (collision.name == "Slot (6)") isOverSlot[6] = true;
+        if (collision.name == "Slot (7)") isOverSlot[7] = true;
+        if (collision.name == "Slot (8)") isOverSlot[8] = true;
+        if (collision.name == "Slot (9)") isOverSlot[9] = true;
+    }
+    private void OnTriggerExit2D(Collider2D collision)
+    {
+        if (collision.name == "Slot (0)") isOverSlot[0] = false;
+        if (collision.name == "Slot (1)") isOverSlot[1] = false;
+        if (collision.name == "Slot (2)") isOverSlot[2] = false;
+        if (collision.name == "Slot (3)") isOverSlot[3] = false;
+        if (collision.name == "Slot (4)") isOverSlot[4] = false;
+        if (collision.name == "Slot (5)") isOverSlot[5] = false;
+        if (collision.name == "Slot (6)") isOverSlot[6] = false;
+        if (collision.name == "Slot (7)") isOverSlot[7] = false;
+        if (collision.name == "Slot (8)") isOverSlot[8] = false;
+        if (collision.name == "Slot (9)") isOverSlot[9] = false;
+
+    }
+
+    void Update()
+    {
+        foreach (Card card in FindObjectsOfType<Card>())
+        {
+            if (this.isInDeck == true && this.cardNumber == 1)
+            {
+                deck.cardsInBlueSlot[order(isOverSlot, true)] = true;
+            }
+            else if (this.isInDeck == true && this.cardNumber == 2)
+            {
+                deck.cardsInRedSlot[order(isOverSlot, true)] = true;
+            }
+        }
+        if (isDragging)
+        {
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            transform.Translate(mousePosition);
+            if (isInDeck == true)
+            {
+                if (cardNumber == 1)
+                {
+                    deck.cardsInBlueSlot[order(isOverSlot, true)] = false;
+                }
+                else
+                {
+                    deck.cardsInRedSlot[order(isOverSlot, true)] = false;
+                }
+            }
+            isInDeck = false;
+        }
+        if (returnHome == true)
+        {
+            isInDeck = false;
+            if (cardNumber == 1)
+            {
+                deck.cardsInBlueSlot[order(isOverSlot, true)] = false;
+            }
+            else
+            {
+                deck.cardsInRedSlot[order(isOverSlot, true)] = false;
+            }
+            if (transform.position != returnPos)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, returnPos, Time.deltaTime * 60);
+            }
+            else returnHome = false;
+        }
+
+        if (isInDeck == true)
+        {
+            transform.localScale = normScale + Vector3.one * 0.3f + Vector3.one * hoverAmount / 2;
+            transform.position = new Vector3(transform.position.x, transform.position.y, -0.1f);
+        }
+        else
+        {
+            transform.localScale = normScale + Vector3.one * hoverAmount;
+            transform.position = new Vector3(transform.position.x, transform.position.y, returnPos.z);
+        }
+
+        if (deck.gameHasStarted == true)
+        {
+            isInDeck = true;
+
+            float solidDistance = 0.5f;
+
+            float dist = transform.position.y - returnPos.y;
+            if (dist < solidDistance) dist = solidDistance;
+            GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, solidDistance / dist);
+            coin.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, solidDistance / dist);
+            N1.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 0f, solidDistance / dist);
+            N2.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 0f, solidDistance / dist);
+        }
+        if (deck.gameHasStarted == true && isDragging == false && cardNumber == gm.playerTurn)
+        {
+            if (slotInDeck <= 4)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, deck.slotPos[slotInDeck].transform.position, Time.deltaTime * 25);
+            }
+            else if (slotInDeck > 4)
+            {
+                transform.position = Vector3.MoveTowards(transform.position, deck.deckSprite.transform.position, Time.deltaTime * 25);
+            }
+        }
+        else if (deck.gameHasStarted == true && isDragging == false && cardNumber != gm.playerTurn)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, deck.deckSprite.transform.position, Time.deltaTime * 25);
+        }
+        if (transform.position == deck.slotPos[slotInDeck].transform.position && deck.gameHasStarted == true)
+        {
+            returnPos = deck.slotPos[slotInDeck].transform.position;
+        }
+    }
+
+    public void UpdateCardSlot(int leavingSlot, int number)
+    {
+        if (cardNumber == number)
+        {
+            if (slotInDeck > leavingSlot) slotInDeck -= 1;
+        }
+    }
+
+    public int count(bool[] array, bool flag)
+    {
+        int value = 0;
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            if (array[i] == flag) value++;
+        }
+
+        return value;
+    }
+    public int order(bool[] array, bool flag)
+    {
+        int value = 0;
+
+        for (int i = 0; i < array.Length; i++)
+        {
+            if (array[i] == flag) value = i;
+        }
+
+        return value;
+    }
+}

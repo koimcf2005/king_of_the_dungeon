@@ -1,0 +1,538 @@
+fileFormatVersion: 2
+guid: b98d4b8e3197db94d97fe76f289c9dc2
+TextureImporter:
+  internalIDToNameTable:
+  - first:
+      213: -1906548152568436133
+    second: BluePawnBackIdle1
+  - first:
+      213: 8444986936594061461
+    second: BluePawnBackIdle2
+  - first:
+      213: -602006800404232422
+    second: BluePawnBackIdle3
+  - first:
+      213: -3151147962122230714
+    second: BluePawnBackIdle4
+  - first:
+      213: -6315399054505734373
+    second: BluePawnFrontIdle2
+  - first:
+      213: 1845435949813654620
+    second: BluePawnFrontIdle3
+  - first:
+      213: -7910788488569776301
+    second: BluePawnFrontIdle4
+  - first:
+      213: 1467465610972841377
+    second: BluePawnRightIdle2
+  - first:
+      213: -2204976268082886551
+    second: BluePawnRightIdle3
+  - first:
+      213: 6114873694494334954
+    second: BluePawnRightIdle4
+  - first:
+      213: 792551732432088028
+    second: BluePawnLeftIdle2
+  - first:
+      213: 868736194498439511
+    second: BluePawnLeftIdle3
+  - first:
+      213: 8331459159335216923
+    second: BluePawnLeftIdle4
+  - first:
+      213: -2699694150100455634
+    second: BluePawnHand
+  - first:
+      213: 5772721773103908673
+    second: BluePawnFrontIdle1
+  - first:
+      213: -4858361968561034524
+    second: BluePawnRightIdle1
+  - first:
+      213: 5051410762267267906
+    second: BluePawnLeftIdle1
+  - first:
+      213: 6442139097866027222
+    second: BluePawnSword
+  - first:
+      213: 7867769985515197561
+    second: blue_pawn_18
+  externalObjects: {}
+  serializedVersion: 10
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: -1
+    mipBias: -100
+    wrapU: 1
+    wrapV: 1
+    wrapW: 1
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 14
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: BluePawnBackIdle1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 64
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c43fd4b801a96344c98057745afc49c1
+      internalID: -1906548152568436133
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnBackIdle2
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 64
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7c76f6c4c6c6c7a469dff319d7e47bdc
+      internalID: 8444986936594061461
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnBackIdle3
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 64
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: cc22402687958e345b09010389f613bf
+      internalID: -602006800404232422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnBackIdle4
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 64
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ae82505629a9dca42a1d6bfc1d09cec4
+      internalID: -3151147962122230714
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnFrontIdle2
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 46
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d0447c950733318428728309ed091659
+      internalID: -6315399054505734373
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnFrontIdle3
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 46
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8351462056f1c8a4994447eb90d11778
+      internalID: 1845435949813654620
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnFrontIdle4
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 46
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 71fa9eef243b99445ae8ead88cef272c
+      internalID: -7910788488569776301
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnRightIdle2
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 28
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: be077af5c3888114bbf777c609a2ccd2
+      internalID: 1467465610972841377
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnRightIdle3
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 28
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: ffc24e89fb9313940b5cfb0cd5cc973a
+      internalID: -2204976268082886551
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnRightIdle4
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 28
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 4e5992755fa9c0e40adcf4e96fb5d20b
+      internalID: 6114873694494334954
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnLeftIdle2
+      rect:
+        serializedVersion: 2
+        x: 16
+        y: 10
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1d3690943bc4dd44588e706f3b5582eb
+      internalID: 792551732432088028
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnLeftIdle3
+      rect:
+        serializedVersion: 2
+        x: 31
+        y: 10
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c38577935b3a6884192932a8bf7cd152
+      internalID: 868736194498439511
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnLeftIdle4
+      rect:
+        serializedVersion: 2
+        x: 46
+        y: 10
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 9b8b83a070144404e853de95055d9348
+      internalID: 8331459159335216923
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnHand
+      rect:
+        serializedVersion: 2
+        x: 8
+        y: 2
+        width: 4
+        height: 5
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 69aed1edc3845f14aae4bdfb93b27df3
+      internalID: -2699694150100455634
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnFrontIdle1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 46
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 1a0496daa525a90409431c594376810a
+      internalID: 5772721773103908673
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnRightIdle1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 28
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 94804040ec027084aa415155373f5801
+      internalID: -4858361968561034524
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnLeftIdle1
+      rect:
+        serializedVersion: 2
+        x: 1
+        y: 10
+        width: 12
+        height: 18
+      alignment: 0
+      pivot: {x: 0.5, y: 0.5}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 5eaa8f24fef48da408d421e33e22eb6b
+      internalID: 5051410762267267906
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: BluePawnSword
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 0
+        width: 22
+        height: 10
+      alignment: 9
+      pivot: {x: 0.110297635, y: 0.514531}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8ccdc80ac58655542aee4baa740cd449
+      internalID: 6442139097866027222
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: 5e97eb03825dee720800000000000000
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+  spritePackingTag: 
+  pSDRemoveMatte: 0
+  pSDShowRemoveMatteOption: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
