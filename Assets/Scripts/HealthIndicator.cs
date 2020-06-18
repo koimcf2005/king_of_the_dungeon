@@ -25,13 +25,13 @@ public class HealthIndicator : MonoBehaviour
         float normAmount = 0.5f;
 
         heart.GetComponent<SpriteRenderer>().sprite = heartIcon;
-        heartLight.GetComponent<Light2D>().color = Color.red;
+        heartLight.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().color = Color.red;
         GetComponent<SpriteRenderer>().sprite = damageSprites[health - 1];
         GetComponent<SpriteRenderer>().color = Color.white;
 
         if (health > maxHealth)
         {
-            heartLight.GetComponent<Light2D>().color = purpleColor;
+            heartLight.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().color = purpleColor;
             GetComponent<SpriteRenderer>().color = Color.magenta;
             heart.GetComponent<SpriteRenderer>().sprite = purpleHeartIcon;
         }
@@ -40,7 +40,7 @@ public class HealthIndicator : MonoBehaviour
         {
             heart.GetComponent<SpriteRenderer>().sprite = shieldIcon;
             heart.GetComponent<SpriteRenderer>().color = color;
-            heartLight.GetComponent<Light2D>().color = color;
+            heartLight.GetComponent<UnityEngine.Experimental.Rendering.Universal.Light2D>().color = color;
             GetComponent<SpriteRenderer>().sprite = damageSprites[shieldsLeft - 1];
             GetComponent<SpriteRenderer>().color = color;
         }

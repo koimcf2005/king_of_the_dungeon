@@ -14,6 +14,7 @@ public class Unit : MonoBehaviour
     public bool isHealer;
     public bool isElite;
     public bool isKing;
+    public bool isThief;
     public bool spawnedFromCard;
     public bool isInstance;
 
@@ -44,6 +45,7 @@ public class Unit : MonoBehaviour
     public GameObject healHighlight;
     public SpawnEffect spawnPar;
     public SpawnEffect arrow;
+    public ParticleSystem goldPar;
     public GameObject spawnParDeath;
     public Transform crystalPos;
 
@@ -244,33 +246,81 @@ public class Unit : MonoBehaviour
             StartCoroutine(arrowInstance.KillArrow());
         }   // Arrow Spawning ******************************************************************************************************
 
-            // Attack *****************************************************************************************************
-            camAnim.SetTrigger("Shake");
+        // Attack *****************************************************************************************************
+        camAnim.SetTrigger("Shake");
 
-            enemy.UpdateShieldsLeft();
+        enemy.UpdateShieldsLeft();
 
-            if (deltDamage >= 1)
+        if (deltDamage >= 1)
+        {
+            DamageIcon instance = Instantiate(dmgIcon, enemy.transform.position, Quaternion.identity);
+            instance.Setup(deltDamage);
+            enemy.health -= deltDamage;
+        }
+        else
+        {
+            Instantiate(shieldIcon, enemy.transform.position + new Vector3(0, 0.2f, 0), Quaternion.identity);
+        }
+
+        if (enemy.health <= 0)
+        {
+            Instantiate(deathPar, enemy.transform.position, Quaternion.identity);
+            Destroy(enemy.gameObject);
+            gm.selectedUnit.GetWalkableTiles();
+
+            if (gm.selectedUnit.isThief == true)
             {
-                DamageIcon instance = Instantiate(dmgIcon, enemy.transform.position, Quaternion.identity);
-                instance.Setup(deltDamage);
-                enemy.health -= deltDamage;
-            }
-            else
-            {
-                Instantiate(shieldIcon, enemy.transform.position + new Vector3(0, 0.2f, 0), Quaternion.identity);
-            }
-
-            if (enemy.health <= 0)
-            {
-                Instantiate(deathPar, enemy.transform.position, Quaternion.identity);
-                Destroy(enemy.gameObject);
-                gm.selectedUnit.GetWalkableTiles();
-
-                foreach (Unit unit in FindObjectsOfType<Unit>())
+                if (gm.selectedUnit.playerNumber == 1 && gm.redGold >= 5)
                 {
-                    unit.isAttacking = false;
+                    int g = 10;
+                    if (gm.redGold < 10) g -= 5;
+                    gm.redGold -= g;
+                    gm.blueGold += g;
+                    if (gm.redGold < 0) gm.redGold = 0;
+                    ParticleSystem coin = Instantiate(gm.selectedUnit.goldPar, enemy.transform.position, Quaternion.identity);
+                    coin.Play();
+                    ParticleSystem coin2 = Instantiate(gm.selectedUnit.goldPar, enemy.transform.position, Quaternion.identity);
+                    coin2.Play();
+                }
+                else if (gm.selectedUnit.playerNumber == 2 && gm.blueGold >= 5)
+                {
+                    int g = 10;
+                    if (gm.blueGold < 10) g -= 5;
+                    gm.redGold += g;
+                    gm.blueGold -= g;
+                    if (gm.blueGold < 0) gm.blueGold = 0;
+                    ParticleSystem coin = Instantiate(gm.selectedUnit.goldPar, enemy.transform.position, Quaternion.identity);
+                    coin.Play();
+                    ParticleSystem coin2 = Instantiate(gm.selectedUnit.goldPar, enemy.transform.position, Quaternion.identity);
+                    coin2.Play();
                 }
             }
+
+            foreach (Unit unit in FindObjectsOfType<Unit>())
+            {
+                unit.isAttacking = false;
+            }
+        }
+        else
+        {
+            if (gm.selectedUnit.isThief == true)
+            {
+                if (gm.selectedUnit.playerNumber == 1 && gm.redGold >= 5)
+                {
+                    gm.redGold -= 5;
+                    gm.blueGold += 5;
+                    ParticleSystem coin = Instantiate(gm.selectedUnit.goldPar, enemy.transform.position, Quaternion.identity);
+                    coin.Play();
+                }
+                else if (gm.selectedUnit.playerNumber == 2 && gm.blueGold >= 5)
+                {
+                    gm.redGold += 5;
+                    gm.blueGold -= 5;
+                    ParticleSystem coin = Instantiate(gm.selectedUnit.goldPar, enemy.transform.position, Quaternion.identity);
+                    coin.Play();
+                }
+            }
+        }
 
         if (Mathf.Abs(gm.selectedUnit.transform.position.x - enemy.transform.position.x) // Checks to see if the enemy can attack back
           + Mathf.Abs(gm.selectedUnit.transform.position.y - enemy.transform.position.y) <= 1 && enemy.isHealer == false || enemy.tag == "Range")

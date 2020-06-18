@@ -26,8 +26,8 @@ public class CoinColumn : MonoBehaviour
                 if (Mathf.Abs(king.transform.position.x - transform.position.x) + Mathf.Abs(king.transform.position.y - transform.position.y) <= 1)
                 {
                     GetComponentInChildren<SpriteRenderer>().sprite = ColumnSprites[king.playerNumber - 1];
-                    GetComponentInChildren<Light2D>().color = LightColors[king.playerNumber - 1];
-                    GetComponentInChildren<Light2D>().intensity = 1;
+                    GetComponentInChildren<UnityEngine.Experimental.Rendering.Universal.Light2D>().color = LightColors[king.playerNumber - 1];
+                    GetComponentInChildren<UnityEngine.Experimental.Rendering.Universal.Light2D>().intensity = 1;
                     columnNumber = king.playerNumber;
                     if (canSpawnPar == true) Instantiate(pars[king.playerNumber - 1], transform.position, Quaternion.identity); canSpawnPar = false;
                 }
@@ -38,8 +38,8 @@ public class CoinColumn : MonoBehaviour
                     {
                         Instantiate(pars[otherKing.playerNumber - 1], transform.position, Quaternion.identity); canSpawnPar = false;
                         GetComponentInChildren<SpriteRenderer>().sprite = ColumnSprites[otherKing.playerNumber - 1];
-                        GetComponentInChildren<Light2D>().color = LightColors[otherKing.playerNumber - 1];
-                        GetComponentInChildren<Light2D>().intensity = 1;
+                        GetComponentInChildren<UnityEngine.Experimental.Rendering.Universal.Light2D>().color = LightColors[otherKing.playerNumber - 1];
+                        GetComponentInChildren<UnityEngine.Experimental.Rendering.Universal.Light2D>().intensity = 1;
                         columnNumber = otherKing.playerNumber;
                     }
                 }
