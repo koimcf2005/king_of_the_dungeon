@@ -401,10 +401,10 @@ MonoBehaviour:
   spawnedFromCard: 0
   isInstance: 0
   shieldsLeft: 0
-  tileSpeed: 4
+  tileSpeed: 3
   playerNumber: 2
   attacksLeft: 1
-  moveSpeed: 4
+  moveSpeed: 3
   attackRange: 1
   health: 4
   attackDamage: 3

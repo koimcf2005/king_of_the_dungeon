@@ -78,7 +78,7 @@ public class Card : MonoBehaviour
                     slotInDeck = 9;
                     returnPos = deck.deckSprite.transform.position;
                 }
-                else if (tile.transform.position != movePositions || tile.isWalkable == false)
+                else 
                 {
                     isDragging = false;
                     returnHome = true;
@@ -146,7 +146,7 @@ public class Card : MonoBehaviour
         }
         if (isDragging)
         {
-            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - transform.position;
+            Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition) - new Vector3(transform.position.x, transform.position.y - 0.5f, transform.position.z);
             transform.Translate(mousePosition);
             if (isInDeck == true)
             {

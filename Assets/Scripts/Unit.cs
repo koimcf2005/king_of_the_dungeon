@@ -4,55 +4,71 @@ using UnityEngine;
 
 public class Unit : MonoBehaviour
 {
-
+    [HideInInspector]
     public bool selected;
+    [HideInInspector]
     public bool hasMoved;
+    [HideInInspector]
     public bool hasAttacked;
+    [HideInInspector]
+    public int price;
 
+    public int playerNumber;
+    [Space]
+    [Header("Unit Type Bools")]
     public bool isArcher;
     public bool isBrute;
     public bool isHealer;
     public bool isElite;
     public bool isKing;
     public bool isThief;
-    public bool spawnedFromCard;
+    public bool isCrystal;
     public bool isInstance;
-
-    public int shieldsLeft;
+    public bool spawnedFromCard;
+    [Space]
+    [Header("Move Stats")]
     public int tileSpeed;
-    public int playerNumber;
-    public int attacksLeft;
-
     public float moveSpeed;
-
+    [Space]
+    [Header("Attack Stats")]
+    public int attacksLeft;
     public int attackRange;
-    List<Unit> enemiesInRange = new List<Unit>();
-    List<Unit> alliesInRange = new List<Unit>();
-    public int health;
-    private int maxHealth;
     public int attackDamage;
     public float attackSpeed;
+
+    List<Unit> enemiesInRange = new List<Unit>();
+    List<Unit> alliesInRange = new List<Unit>();
+
+    [Space]
+    [Header("Health Stats")]
+    public int health;
+    private int maxHealth;
+    public int shieldsLeft;
     public int defenceDamage;
     public int normArmor;
     public int armor;
-    public int price;
-
+    [Space]
+    [Header("Icons")]
+    public HealthIndicator healthIndicator;
     public DamageIcon dmgIcon;
     public GameObject healIcon;
     public GameObject shieldIcon;
-    public GameObject deathPar;
+    [Space]
+    [Header("Highlights")]
     public GameObject attackHighlight;
     public GameObject healHighlight;
+    [Space]
+    [Header("Pars")]
+    public GameObject deathPar;
     public SpawnEffect spawnPar;
-    public SpawnEffect arrow;
-    public ParticleSystem goldPar;
     public GameObject spawnParDeath;
+    public ParticleSystem goldPar;
+    [Space]
+    [Header("Rand")]
     public Transform crystalPos;
-
-    public HealthIndicator healthIndicator;
-
+    public SpawnEffect arrow;
+    [HideInInspector]
     public Animator camAnim;
-
     public bool isAttacking = true;
     private Animator anim;
     GameMaster gm;
@@ -86,17 +102,21 @@ public class Unit : MonoBehaviour
                 gm.redGold -= g;
             }
         }
-        SpawnEffect par = Instantiate(spawnPar, crystalPos.position, Quaternion.identity);
-        par.targetPos = transform.position;
-        par.speed = Mathf.Abs(transform.position.x - crystalPos.position.x);
-        par.arcHeight = 2;
-        while (par.targetPos.x != par.transform.position.x || par.targetPos.y != par.transform.position.y)
+
+        if (transform.position.x >= -7 && transform.position.x <= 7 && isCrystal == false)
         {
-            yield return null;
+            SpawnEffect par = Instantiate(spawnPar, crystalPos.position, Quaternion.identity);
+            par.targetPos = transform.position;
+            par.speed = Mathf.Abs(transform.position.x - crystalPos.position.x);
+            par.arcHeight = 2;
+            while (par.targetPos.x != par.transform.position.x || par.targetPos.y != par.transform.position.y)
+            {
+                yield return null;
+            }
+            par.GetComponent<ParticleSystem>().Stop();
+            Instantiate(spawnParDeath, transform.position, Quaternion.identity);
         }
-        anim.SetTrigger("Spawn");
-        par.GetComponent<ParticleSystem>().Stop();
-        Instantiate(spawnParDeath, transform.position, Quaternion.identity);
+        if (isCrystal == false) anim.SetTrigger("Spawn");
         isAttacking = false;
     }
 
@@ -247,7 +267,7 @@ public class Unit : MonoBehaviour
         }   // Arrow Spawning ******************************************************************************************************
 
         // Attack *****************************************************************************************************
-        camAnim.SetTrigger("Shake");
+        gm.selectedUnit.camAnim.SetTrigger("Shake");
 
         enemy.UpdateShieldsLeft();
 
@@ -323,7 +343,7 @@ public class Unit : MonoBehaviour
         }
 
         if (Mathf.Abs(gm.selectedUnit.transform.position.x - enemy.transform.position.x) // Checks to see if the enemy can attack back
-          + Mathf.Abs(gm.selectedUnit.transform.position.y - enemy.transform.position.y) <= 1 && enemy.isHealer == false || enemy.tag == "Range")
+          + Mathf.Abs(gm.selectedUnit.transform.position.y - enemy.transform.position.y) <= 1 && enemy.isHealer == false && enemy.isCrystal == false || enemy.tag == "Range")
         {
             yield return new WaitForSeconds(0.3f);
 
@@ -335,7 +355,7 @@ public class Unit : MonoBehaviour
             else // Enemy arrow spawning *************************************************************************************
             {
                 yield return new WaitForSeconds(1.4f);
-                camAnim.SetTrigger("Shake");
+                gm.selectedUnit.camAnim.SetTrigger("Shake");
                 SpawnEffect arrowInstance = Instantiate(enemy.arrow, enemy.transform.position, Quaternion.identity);
                 arrowInstance.arcHeight = 4;
                 if (Mathf.Abs(gm.selectedUnit.transform.position.x - enemy.transform.position.x) >= 1)
@@ -358,7 +378,7 @@ public class Unit : MonoBehaviour
                 StartCoroutine(arrowInstance.KillArrow());
             } // Enemy arrow spawning *************************************************************************************************************************
 
-            camAnim.SetTrigger("Shake");
+            gm.selectedUnit.camAnim.SetTrigger("Shake");
 
             // Enemy attack ************************************************************************************************************************************
 
@@ -429,7 +449,7 @@ public class Unit : MonoBehaviour
                 }
                 else if (gm.selectedUnit.isHealer == true)
                 {
-                    if (unit.playerNumber == gm.playerTurn && hasAttacked == false && gm.selectedUnit != unit && unit.health < unit.maxHealth + 1 && unit.shieldsLeft == 0)
+                    if (unit.playerNumber == gm.playerTurn && hasAttacked == false && gm.selectedUnit != unit && unit.health < unit.maxHealth + 1 && unit.shieldsLeft == 0 && unit.isCrystal == false)
                     {
                         alliesInRange.Add(unit);
                         unit.healHighlight.SetActive(true);
@@ -503,16 +523,19 @@ public class Unit : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (this.playerNumber == 1)
+        if (this.isCrystal == false)
         {
-            healthIndicator.transform.position = transform.position + new Vector3(0.25f, 0.2f, 0);
-        }
-        else if (this.playerNumber == 2)
-        {
-            healthIndicator.transform.position = transform.position + new Vector3(0.25f, 0.2f, 0);
-        }
+            if (this.playerNumber == 1)
+            {
+                healthIndicator.transform.position = transform.position + new Vector3(0.25f, 0.2f, 0);
+            }
+            else if (this.playerNumber == 2)
+            {
+                healthIndicator.transform.position = transform.position + new Vector3(0.25f, 0.2f, 0);
+            }
 
-        healthIndicator.Setup(this.health, this.shieldsLeft, this.maxHealth);
+            healthIndicator.Setup(this.health, this.shieldsLeft, this.maxHealth);
+        }
     }
 
     private void OnMouseExit()

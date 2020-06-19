@@ -67,7 +67,7 @@ public class GameMaster : MonoBehaviour
             if (selectedUnit != null)
             {
                 highlight.SetActive(true);
-                highlight.transform.position = selectedUnit.transform.position + new Vector3(0, 0, -3);
+                highlight.transform.position = selectedUnit.transform.position + new Vector3(0, 0, -8);
             }
             else
             {
@@ -107,6 +107,16 @@ public class GameMaster : MonoBehaviour
     public IEnumerator EndTurn()
     {
         canTurnChange = false;
+
+        foreach (Unit unit in FindObjectsOfType<Unit>())
+        {
+            unit.hasMoved = false;
+            unit.attackHighlight.SetActive(false);
+            unit.hasAttacked = false;
+            unit.isAttacking = false;
+            if (unit.isElite == true) unit.attacksLeft = 2;
+            else unit.attacksLeft = 1;
+        }
 
         foreach (CoinColumn column in FindObjectsOfType<CoinColumn>())
         {
@@ -149,16 +159,6 @@ public class GameMaster : MonoBehaviour
         else if (playerTurn == 2)
         {
             MovesBanner.GetComponent<SpriteRenderer>().sprite = redSprites[movesLeft - 1];
-        }
-
-        foreach (Unit unit in FindObjectsOfType<Unit>())
-        {
-            unit.hasMoved = false;
-            unit.attackHighlight.SetActive(false);
-            unit.hasAttacked = false;
-            unit.isAttacking = false;
-            if (unit.isElite == true) unit.attacksLeft = 2;
-            else unit.attacksLeft = 1;
         }
 
         yield return new WaitForSeconds(1.5f);
