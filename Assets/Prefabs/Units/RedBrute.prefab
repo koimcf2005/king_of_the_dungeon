@@ -55,6 +55,8 @@ MonoBehaviour:
   m_UseNormalMap: 1
   m_LightOrder: 1
   m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -126,6 +128,8 @@ MonoBehaviour:
   m_UseNormalMap: 1
   m_LightOrder: 1
   m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -196,6 +200,8 @@ MonoBehaviour:
   m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 1
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.046546366
@@ -266,6 +272,8 @@ MonoBehaviour:
   m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 1
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.046546366
@@ -337,6 +345,8 @@ MonoBehaviour:
   m_UseNormalMap: 1
   m_LightOrder: 1
   m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -407,6 +417,8 @@ MonoBehaviour:
   m_UseNormalMap: 0
   m_LightOrder: 1
   m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -469,6 +481,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -551,6 +564,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -632,6 +646,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -719,41 +734,50 @@ MonoBehaviour:
   selected: 0
   hasMoved: 0
   hasAttacked: 0
+  price: 0
+  isEnraged: 0
+  movableRagePar: {fileID: 0}
+  playerNumber: 2
   isArcher: 0
   isBrute: 1
   isHealer: 0
   isElite: 0
   isKing: 0
-  spawnedFromCard: 0
+  isThief: 0
+  isBeserk: 0
+  rageEffect: {fileID: 0}
+  yellEffect: {fileID: 0}
+  isCrystal: 0
   isInstance: 0
-  shieldsLeft: 2
+  spawnedFromCard: 0
   tileSpeed: 3
-  playerNumber: 2
-  attacksLeft: 1
   moveSpeed: 2
+  attacksLeft: 1
   attackRange: 1
-  health: 3
   attackDamage: 3
+  normDmg: 3
   attackSpeed: 0.66
+  health: 3
+  shieldsLeft: 2
   defenceDamage: 2
   normArmor: 1
   armor: 10
-  price: 0
+  healthIndicator: {fileID: 0}
   dmgIcon: {fileID: 486270390967286748, guid: 537fc2a0de34a324c9f316308ce82be1, type: 3}
   healIcon: {fileID: 0}
   shieldIcon: {fileID: 6792702293340139697, guid: 2afd3cdccf25cfb428fedb67e57c733a,
     type: 3}
-  deathPar: {fileID: 7483879309396800384, guid: 1a37ee4c7fed2f545bf792bfda72e620,
-    type: 3}
   attackHighlight: {fileID: 6079616083168038755}
   healHighlight: {fileID: 2423280682620608731}
+  deathPar: {fileID: 7483879309396800384, guid: 1a37ee4c7fed2f545bf792bfda72e620,
+    type: 3}
   spawnPar: {fileID: 4201964154418522223, guid: 529c6c22df7e84244a6727248b94cf44,
     type: 3}
-  arrow: {fileID: 2345532328245530976, guid: 2dbe59a8eb80f3a4bbb91bd82d636075, type: 3}
   spawnParDeath: {fileID: 828177303802729478, guid: cbf23ed682eca8b489566876d0c98458,
     type: 3}
+  goldPar: {fileID: 0}
   crystalPos: {fileID: 0}
-  healthIndicator: {fileID: 0}
+  arrow: {fileID: 2345532328245530976, guid: 2dbe59a8eb80f3a4bbb91bd82d636075, type: 3}
   camAnim: {fileID: 0}
   isAttacking: 1
 --- !u!61 &4574379562363719338
@@ -846,6 +870,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -947,6 +972,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1036,6 +1062,8 @@ MonoBehaviour:
   m_UseNormalMap: 0
   m_LightOrder: 1
   m_AlphaBlendOnOverlap: 0
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0
@@ -1098,6 +1126,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -1180,6 +1209,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:

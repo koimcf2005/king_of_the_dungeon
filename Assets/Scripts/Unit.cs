@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEditor;
 
 public class Unit : MonoBehaviour
 {
@@ -12,6 +13,7 @@ public class Unit : MonoBehaviour
     public bool hasAttacked;
     [HideInInspector]
     public int price;
+    public bool isEnraged;
 
     public int playerNumber;
     [Space]
@@ -22,6 +24,7 @@ public class Unit : MonoBehaviour
     public bool isElite;
     public bool isKing;
     public bool isThief;
+    public bool isBerserk;
     public bool isCrystal;
     public bool isInstance;
     public bool spawnedFromCard;
@@ -34,6 +37,7 @@ public class Unit : MonoBehaviour
     public int attacksLeft;
     public int attackRange;
     public int attackDamage;
+    public int normAttackDmg;
     public float attackSpeed;
 
     List<Unit> enemiesInRange = new List<Unit>();
@@ -63,6 +67,8 @@ public class Unit : MonoBehaviour
     public SpawnEffect spawnPar;
     public GameObject spawnParDeath;
     public ParticleSystem goldPar;
+    public GameObject rageEffect;
+    public ParticleSystem yellEffect;
     [Space]
     [Header("Rand")]
     public Transform crystalPos;
@@ -80,6 +86,7 @@ public class Unit : MonoBehaviour
         camAnim = FindObjectOfType<Camera>().GetComponent<Animator>();
         if (isInstance == false) StartCoroutine(Spawn(price));
         maxHealth = health;
+        normAttackDmg = attackDamage;
         gm.ResetTiles();
     }
 
@@ -105,7 +112,7 @@ public class Unit : MonoBehaviour
 
         if (transform.position.x >= -7 && transform.position.x <= 7 && isCrystal == false)
         {
-            SpawnEffect par = Instantiate(spawnPar, crystalPos.position, Quaternion.identity);
+            SpawnEffect par = Instantiate(spawnPar, crystalPos.position + new Vector3(0.01f, 0, 0), Quaternion.identity);
             par.targetPos = transform.position;
             par.speed = Mathf.Abs(transform.position.x - crystalPos.position.x);
             par.arcHeight = 2;
@@ -140,6 +147,17 @@ public class Unit : MonoBehaviour
             float zPos = column.transform.position.y;
             int order = Mathf.RoundToInt(zPos);
             column.transform.position = new Vector3(column.transform.position.x, column.transform.position.y, zPos / 2);
+        }
+
+        if (isEnraged == true)
+        {
+            attackDamage = normAttackDmg + 1;
+            rageEffect.SetActive(true);
+        }
+        else
+        {
+            attackDamage = normAttackDmg;
+            rageEffect.SetActive(false);
         }
 
     }
@@ -229,6 +247,7 @@ public class Unit : MonoBehaviour
             unit.isAttacking = true;
         }
 
+        gm.selectedUnit.isEnraged = false;
         healthIndicator.transform.position = new Vector3(12, 12, 0);
 
         int deltDamage = gm.selectedUnit.attackDamage - enemy.armor; // Gets the damage vals
@@ -315,7 +334,20 @@ public class Unit : MonoBehaviour
                     coin2.Play();
                 }
             }
-
+            if (gm.selectedUnit.isBerserk == true)
+            {
+                ParticleSystem par = Instantiate(gm.selectedUnit.yellEffect, gm.selectedUnit.transform.position, Quaternion.identity);
+                par.Play();
+                foreach (Unit unit in FindObjectsOfType<Unit>())
+                {
+                    if (Mathf.Abs(gm.selectedUnit.transform.position.x - unit.transform.position.x) <= 1
+                     && Mathf.Abs(gm.selectedUnit.transform.position.y - unit.transform.position.y) <= 1
+                     && unit.isHealer == false && unit.playerNumber == gm.selectedUnit.playerNumber || unit == gm.selectedUnit)
+                    {
+                        unit.isEnraged = true;
+                    }
+                }
+            }
             foreach (Unit unit in FindObjectsOfType<Unit>())
             {
                 unit.isAttacking = false;
@@ -419,7 +451,6 @@ public class Unit : MonoBehaviour
 
         foreach (Tile tile in FindObjectsOfType<Tile>())
         {
-
             if (Mathf.Abs(transform.position.y - tile.transform.position.y) + Mathf.Abs(transform.position.x - tile.transform.position.x) <= tileSpeed)
             {
                 if (tile.IsClear() == true)

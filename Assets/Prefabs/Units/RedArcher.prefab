@@ -557,41 +557,50 @@ MonoBehaviour:
   selected: 0
   hasMoved: 0
   hasAttacked: 0
+  price: 0
+  isEnraged: 0
+  movableRagePar: {fileID: 0}
+  playerNumber: 2
   isArcher: 1
   isBrute: 0
   isHealer: 0
   isElite: 0
   isKing: 0
-  spawnedFromCard: 0
+  isThief: 0
+  isBeserk: 0
+  rageEffect: {fileID: 0}
+  yellEffect: {fileID: 0}
+  isCrystal: 0
   isInstance: 0
-  shieldsLeft: 0
+  spawnedFromCard: 0
   tileSpeed: 3
-  playerNumber: 2
-  attacksLeft: 1
   moveSpeed: 3
+  attacksLeft: 1
   attackRange: 4
-  health: 5
   attackDamage: 4
+  normDmg: 4
   attackSpeed: 0.95
+  health: 5
+  shieldsLeft: 0
   defenceDamage: 3
   normArmor: 0
   armor: 0
-  price: 0
+  healthIndicator: {fileID: 0}
   dmgIcon: {fileID: 486270390967286748, guid: 537fc2a0de34a324c9f316308ce82be1, type: 3}
   healIcon: {fileID: 0}
   shieldIcon: {fileID: 6792702293340139697, guid: 2afd3cdccf25cfb428fedb67e57c733a,
     type: 3}
-  deathPar: {fileID: 7483879309396800384, guid: 1a37ee4c7fed2f545bf792bfda72e620,
-    type: 3}
   attackHighlight: {fileID: 8830149798956662538}
   healHighlight: {fileID: 6875509299029305142}
+  deathPar: {fileID: 7483879309396800384, guid: 1a37ee4c7fed2f545bf792bfda72e620,
+    type: 3}
   spawnPar: {fileID: 4201964154418522223, guid: 529c6c22df7e84244a6727248b94cf44,
     type: 3}
-  arrow: {fileID: 2345532328245530976, guid: 2dbe59a8eb80f3a4bbb91bd82d636075, type: 3}
   spawnParDeath: {fileID: 828177303802729478, guid: cbf23ed682eca8b489566876d0c98458,
     type: 3}
+  goldPar: {fileID: 0}
   crystalPos: {fileID: 0}
-  healthIndicator: {fileID: 0}
+  arrow: {fileID: 2345532328245530976, guid: 2dbe59a8eb80f3a4bbb91bd82d636075, type: 3}
   camAnim: {fileID: 0}
   isAttacking: 1
 --- !u!61 &5097528589630932329

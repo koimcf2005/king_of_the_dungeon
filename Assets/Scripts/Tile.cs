@@ -51,8 +51,8 @@ public class Tile : MonoBehaviour
 
     public void Highlight()
     {
-            rend.color = highlightedColor;
-            isWalkable = true;
+        rend.color = highlightedColor;
+        isWalkable = true;
     }
 
     public void Reset()
