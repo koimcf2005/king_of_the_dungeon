@@ -13,9 +13,9 @@ public class Unit : MonoBehaviour
     public bool hasAttacked;
     [HideInInspector]
     public int price;
-    public bool isEnraged;
 
     public int playerNumber;
+
     [Space]
     [Header("Unit Type Bools")]
     public bool isArcher;
@@ -25,13 +25,18 @@ public class Unit : MonoBehaviour
     public bool isKing;
     public bool isThief;
     public bool isBerserk;
+    public bool isArmorer;
     public bool isCrystal;
     public bool isInstance;
     public bool spawnedFromCard;
     [Space]
-    [Header("Move Stats")]
+    [Header("Move Stats & Types")]
     public int tileSpeed;
     public float moveSpeed;
+    public bool isSquare;
+    public bool isCross;
+    public bool isDiagonal;
+    public bool isQueen;
     [Space]
     [Header("Attack Stats")]
     public int attacksLeft;
@@ -39,6 +44,7 @@ public class Unit : MonoBehaviour
     public int attackDamage;
     public int normAttackDmg;
     public float attackSpeed;
+    public bool isEnraged;
 
     List<Unit> enemiesInRange = new List<Unit>();
     List<Unit> alliesInRange = new List<Unit>();
@@ -51,24 +57,29 @@ public class Unit : MonoBehaviour
     public int defenceDamage;
     public int normArmor;
     public int armor;
+    public bool isPoisoned;
     [Space]
     [Header("Icons")]
     public HealthIndicator healthIndicator;
     public DamageIcon dmgIcon;
     public GameObject healIcon;
     public GameObject shieldIcon;
+    public GameObject armoredIcon;
     [Space]
     [Header("Highlights")]
     public GameObject attackHighlight;
     public GameObject healHighlight;
+    public GameObject armorHightlight;
     [Space]
     [Header("Pars")]
     public GameObject deathPar;
     public SpawnEffect spawnPar;
     public GameObject spawnParDeath;
     public ParticleSystem goldPar;
+    public ParticleSystem sparkPar;
     public GameObject rageEffect;
     public ParticleSystem yellEffect;
+    public GameObject poisonEffect;
     [Space]
     [Header("Rand")]
     public Transform crystalPos;
@@ -109,7 +120,6 @@ public class Unit : MonoBehaviour
                 gm.redGold -= g;
             }
         }
-
         if (transform.position.x >= -7 && transform.position.x <= 7 && isCrystal == false)
         {
             SpawnEffect par = Instantiate(spawnPar, crystalPos.position + new Vector3(0.01f, 0, 0), Quaternion.identity);
@@ -148,7 +158,6 @@ public class Unit : MonoBehaviour
             int order = Mathf.RoundToInt(zPos);
             column.transform.position = new Vector3(column.transform.position.x, column.transform.position.y, zPos / 2);
         }
-
         if (isEnraged == true)
         {
             attackDamage = normAttackDmg + 1;
@@ -159,7 +168,14 @@ public class Unit : MonoBehaviour
             attackDamage = normAttackDmg;
             rageEffect.SetActive(false);
         }
-
+        if (isPoisoned == true)
+        {
+            poisonEffect.SetActive(true);
+        }
+        else
+        {
+            poisonEffect.SetActive(false);
+        }
     }
 
     private void OnMouseDown()
@@ -175,30 +191,37 @@ public class Unit : MonoBehaviour
                 ResetAttackHighlights();
                 return;
             }
+            if (units.alliesInRange.Contains(this) && gm.selectedUnit.hasAttacked == false && gm.selectedUnit.isArmorer == true)
+            {
+                StartCoroutine(Armor(this, gm.selectedUnit));
+                gm.selectedUnit.hasAttacked = true;
+                ResetAttackHighlights();
+                return;
+            }
         }
-            if (playerNumber != gm.playerTurn && attackHighlight.activeInHierarchy != true) // Checks if the unit team is the same as the players
-            {
-                camAnim.SetTrigger("Shake");
-            }
+        if (playerNumber != gm.playerTurn && attackHighlight.activeInHierarchy != true) // Checks if the unit team is the same as the players
+        {
+            camAnim.SetTrigger("Shake");
+        }
         
-            healthIndicator.transform.position = new Vector3(12, 12, 0);
-            ResetAttackHighlights();
+        healthIndicator.transform.position = new Vector3(12, 12, 0);
+        ResetAttackHighlights();
 
-            if (selected == true) // Selects and deselects the unit
+        if (selected == true) // Selects and deselects the unit
+        {
+            selected = false;
+            gm.selectedUnit = null;
+            gm.ResetTiles();
+            alliesInRange.Clear();
+        }
+        else
+        {
+            if (playerNumber == gm.playerTurn)
             {
-                selected = false;
-                gm.selectedUnit = null;
-                gm.ResetTiles();
-                alliesInRange.Clear();
-            }
-            else
-            {
-                if (playerNumber == gm.playerTurn)
+                if (gm.selectedUnit != null)
                 {
-                    if (gm.selectedUnit != null)
-                    {
-                        gm.selectedUnit.selected = false;
-                    }
+                    gm.selectedUnit.selected = false;
+                }
 
                     selected = true;
                     gm.selectedUnit = this;
@@ -220,6 +243,31 @@ public class Unit : MonoBehaviour
         }
     }
 
+    public IEnumerator Armor(Unit ally, Unit armorer)
+    {
+        armorer.anim.SetTrigger("Armor");
+        yield return new WaitForSeconds(0.848f);
+        Instantiate(armorer.sparkPar, armorer.transform.position + new Vector3(-0.09f, 0), Quaternion.identity);
+        yield return new WaitForSeconds(0.7f);
+        Instantiate(armorer.sparkPar, armorer.transform.position + new Vector3(-0.09f, 0), Quaternion.identity);
+        yield return new WaitForSeconds(0.4f);
+        foreach (Unit unit in FindObjectsOfType<Unit>())
+        {
+            unit.isAttacking = true;
+        }
+        ally.armor = 10;
+        ally.shieldsLeft += 1;
+        Instantiate(armorer.armoredIcon, ally.transform.position, Quaternion.identity);
+        if (armorer.playerNumber == 1) gm.blueGold -= 15;
+        else if (armorer.playerNumber == 2) gm.redGold -= 15;
+        Instantiate(armorer.goldPar, armorer.transform.position, Quaternion.identity);
+        foreach (Unit unit in FindObjectsOfType<Unit>())
+        {
+            unit.isAttacking = false;
+            unit.alliesInRange.Clear();
+        }
+    }
+
     public IEnumerator Heal(Unit ally, Unit healer) // Heals the targeted unit
     {
         foreach (Unit unit in FindObjectsOfType<Unit>())
@@ -233,6 +281,7 @@ public class Unit : MonoBehaviour
         camAnim.SetTrigger("Shake");
         ally.health += 1;
         Instantiate(healer.healIcon, ally.transform.position, Quaternion.identity);
+        ally.isPoisoned = false;
         foreach (Unit unit in FindObjectsOfType<Unit>())
         {
             unit.isAttacking = false;
@@ -427,6 +476,37 @@ public class Unit : MonoBehaviour
 
             if (gm.selectedUnit.health <= 0)
             {
+                if (enemy.isBerserk == true)
+                {
+                    ParticleSystem par = Instantiate(enemy.yellEffect, enemy.transform.position, Quaternion.identity);
+                    par.Play();
+                    foreach (Unit unit in FindObjectsOfType<Unit>())
+                    {
+                        if (Mathf.Abs(enemy.transform.position.x - unit.transform.position.x) <= 1
+                         && Mathf.Abs(enemy.transform.position.y - unit.transform.position.y) <= 1
+                         && unit.isHealer == false && unit.playerNumber == enemy.playerNumber || unit == enemy)
+                        {
+                            unit.isEnraged = true;
+                        }
+                    }
+                }
+                if (enemy.isThief == true)
+                {
+                    if (enemy.playerNumber == 1 && gm.redGold >= 5)
+                    {
+                        gm.redGold -= 5;
+                        gm.blueGold += 5;
+                        ParticleSystem coin = Instantiate(enemy.goldPar, enemy.transform.position, Quaternion.identity);
+                        coin.Play();
+                    }
+                    if (enemy.playerNumber == 2 && gm.blueGold >= 5)
+                    {
+                        gm.redGold += 5;
+                        gm.blueGold -= 5;
+                        ParticleSystem coin = Instantiate(enemy.goldPar, enemy.transform.position, Quaternion.identity);
+                        coin.Play();
+                    }
+                }
                 Instantiate(deathPar, transform.position, Quaternion.identity);
                 gm.ResetTiles();
                 Destroy(gm.selectedUnit.gameObject);
@@ -451,7 +531,41 @@ public class Unit : MonoBehaviour
 
         foreach (Tile tile in FindObjectsOfType<Tile>())
         {
-            if (Mathf.Abs(transform.position.y - tile.transform.position.y) + Mathf.Abs(transform.position.x - tile.transform.position.x) <= tileSpeed)
+            float XAbs = Mathf.Abs(transform.position.x - tile.transform.position.x);
+            float YAbs = Mathf.Abs(transform.position.y - tile.transform.position.y);
+
+            if (isSquare && XAbs <= tileSpeed && YAbs <= tileSpeed)
+            {
+                if (tile.IsClear() == true)
+                {
+                    tile.Highlight();
+                }
+            }
+            else if (isCross && transform.position.y == tile.transform.position.y && XAbs <= tileSpeed ||
+            isCross && transform.position.x == tile.transform.position.x && YAbs <= tileSpeed)
+            {
+                if (tile.IsClear() == true)
+                {
+                    tile.Highlight();
+                }
+            }
+            else if (isDiagonal && Mathf.Abs(YAbs - XAbs) <= 0 && XAbs <= tileSpeed && YAbs <= tileSpeed)
+            {
+                if (tile.IsClear() == true)
+                {
+                    tile.Highlight();
+                }
+            }
+            else if (isQueen && Mathf.Abs(YAbs - XAbs) <= 0 && XAbs <= tileSpeed && YAbs <= tileSpeed ||
+            isQueen && transform.position.y == tile.transform.position.y && XAbs <= tileSpeed ||
+            isQueen && transform.position.x == tile.transform.position.x && YAbs <= tileSpeed)
+            {
+                if (tile.IsClear() == true)
+                {
+                    tile.Highlight();
+                }
+            }
+            else if (isSquare == false && isCross == false && isDiagonal == false && isQueen == false && YAbs + XAbs <= tileSpeed)
             {
                 if (tile.IsClear() == true)
                 {
@@ -468,22 +582,26 @@ public class Unit : MonoBehaviour
 
         foreach (Unit unit in FindObjectsOfType<Unit>())
         {
-            if (Mathf.Abs(transform.position.y - unit.transform.position.y) + Mathf.Abs(transform.position.x - unit.transform.position.x) <= attackRange)
+            if (isHealer == false && Mathf.Abs(transform.position.y - unit.transform.position.y) + Mathf.Abs(transform.position.x - unit.transform.position.x) <= attackRange)
             {
-                if (gm.selectedUnit.isHealer == false)
+                if (unit.playerNumber != gm.playerTurn && hasAttacked == false)
                 {
-                    if (unit.playerNumber != gm.playerTurn && hasAttacked == false)
-                    {
-                        enemiesInRange.Add(unit);
-                        unit.attackHighlight.SetActive(true);
-                    }
+                    enemiesInRange.Add(unit);
+                    unit.attackHighlight.SetActive(true);
                 }
-                else if (gm.selectedUnit.isHealer == true)
+            }
+            if (Mathf.Abs(transform.position.y - unit.transform.position.y) <= attackRange && Mathf.Abs(transform.position.x - unit.transform.position.x) <= attackRange)
+            {
+                if (isHealer == true || isArmorer == true)
                 {
                     if (unit.playerNumber == gm.playerTurn && hasAttacked == false && gm.selectedUnit != unit && unit.health < unit.maxHealth + 1 && unit.shieldsLeft == 0 && unit.isCrystal == false)
                     {
-                        alliesInRange.Add(unit);
-                        unit.healHighlight.SetActive(true);
+                        if (playerNumber == 1 && gm.blueGold >= 15 || playerNumber == 2 && gm.redGold >= 15 || isHealer == true)
+                        {
+                            if (isHealer == true) unit.healHighlight.SetActive(true);
+                            else if (isArmorer == true) unit.armorHightlight.SetActive(true);
+                            alliesInRange.Add(unit);
+                        }
                     }
                 }
             }
@@ -496,6 +614,7 @@ public class Unit : MonoBehaviour
         {
             unit.attackHighlight.SetActive(false);
             unit.healHighlight.SetActive(false);
+            unit.armorHightlight.SetActive(false);
         }
     }
 
@@ -541,10 +660,10 @@ public class Unit : MonoBehaviour
             yield return null;
         }
 
-        gm.UpdateMovesLeft();
         hasMoved = true;
         ResetAttackHighlights();
         GetEnemies();
+        gm.UpdateMovesLeft();
 
         foreach (CoinColumn column in FindObjectsOfType<CoinColumn>())
         {

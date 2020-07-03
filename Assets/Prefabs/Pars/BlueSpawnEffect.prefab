@@ -4765,6 +4765,7 @@ ParticleSystemRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 0
   m_ReflectionProbeUsage: 0
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 4294967295
   m_RendererPriority: 0
   m_Materials:
@@ -4828,6 +4829,7 @@ MonoBehaviour:
   targetPos: {x: 0, y: 0, z: 0}
   speed: 10
   arcHeight: 1
+  startPos: {x: 0, y: 0, z: 0}
   hasLanded: 0
 --- !u!114 &1435507461
 MonoBehaviour:

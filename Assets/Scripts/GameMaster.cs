@@ -111,13 +111,28 @@ public class GameMaster : MonoBehaviour
         foreach (Unit unit in FindObjectsOfType<Unit>())
         {
             unit.hasMoved = false;
-            unit.attackHighlight.SetActive(false);
+            unit.ResetAttackHighlights();
             unit.hasAttacked = false;
             unit.isAttacking = false;
             if (unit.isElite == true) unit.attacksLeft = 2;
             else unit.attacksLeft = 1;
+            if (unit.isPoisoned == true)
+            {
+                if (unit.shieldsLeft >= 1)
+                {
+                    break;
+                }
+                else if (unit.health > 1)
+                {
+                    unit.health -= 1;
+                    Instantiate(unit.dmgIcon, unit.transform.position, Quaternion.identity);
+                }
+                else if (unit.health == 1)
+                {
+                    unit.isPoisoned = false;
+                }
+            }
         }
-
         foreach (CoinColumn column in FindObjectsOfType<CoinColumn>())
         {
             if (column.columnNumber == 1)
@@ -129,7 +144,6 @@ public class GameMaster : MonoBehaviour
                 redGold += 5;
             }
         }
-
         if (playerTurn == 1)
         {
             turnIndicator.GetComponent<Animator>().SetTrigger("Red");
@@ -140,30 +154,23 @@ public class GameMaster : MonoBehaviour
             turnIndicator.GetComponent<Animator>().SetTrigger("Blue");
             playerTurn = 1;
         }
-
         if (selectedUnit != null)
         {
             selectedUnit.selected = false;
             selectedUnit = null;
         }
-
         ResetTiles();
-
         yield return new WaitForSeconds(1.5f);
-
         if (playerTurn == 1)
         {
             MovesBanner.GetComponent<SpriteRenderer>().sprite = blueSprites[movesLeft - 1];
-
         }
         else if (playerTurn == 2)
         {
             MovesBanner.GetComponent<SpriteRenderer>().sprite = redSprites[movesLeft - 1];
         }
-
         yield return new WaitForSeconds(1.5f);
         canTurnChange = true;
-
     }
 
 }

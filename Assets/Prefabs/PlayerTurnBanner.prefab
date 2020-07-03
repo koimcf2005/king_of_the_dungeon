@@ -49,6 +49,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -149,6 +150,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
@@ -239,6 +241,8 @@ MonoBehaviour:
   m_UseNormalMap: 0
   m_LightOrder: 0
   m_AlphaBlendOnOverlap: 1
+  m_ShadowIntensity: 0
+  m_ShadowVolumeIntensity: 0
   m_PointLightInnerAngle: 360
   m_PointLightOuterAngle: 360
   m_PointLightInnerRadius: 0.37
@@ -322,6 +326,12 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7833214726650461996, guid: ca9f02c27ef75794cb1f5b2226122441,
+        type: 3}
+      propertyPath: m_Prefab
+      value: 
+      objectReference: {fileID: 2970504342110214466, guid: 4b5b63e3577d4134aac7476b48af8d27,
+        type: 3}
     - target: {fileID: 8319048353582830094, guid: ca9f02c27ef75794cb1f5b2226122441,
         type: 3}
       propertyPath: InitialModule.startColor.maxColor.r
@@ -357,12 +367,6 @@ PrefabInstance:
       propertyPath: EmissionModule.rateOverTime.scalar
       value: 0.3
       objectReference: {fileID: 0}
-    - target: {fileID: 7833214726650461996, guid: ca9f02c27ef75794cb1f5b2226122441,
-        type: 3}
-      propertyPath: m_Prefab
-      value: 
-      objectReference: {fileID: 2970504342110214466, guid: 4b5b63e3577d4134aac7476b48af8d27,
-        type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: ca9f02c27ef75794cb1f5b2226122441, type: 3}
 --- !u!4 &5021072991197641388 stripped

@@ -47,6 +47,7 @@ MonoBehaviour:
   targetPos: {x: 0, y: 0, z: 0}
   speed: 10
   arcHeight: 1
+  startPos: {x: 0, y: 0, z: 0}
   hasLanded: 0
 --- !u!212 &8395918006182178942
 SpriteRenderer:
@@ -62,6 +63,7 @@ SpriteRenderer:
   m_MotionVectors: 1
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
+  m_RayTracingMode: 0
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
