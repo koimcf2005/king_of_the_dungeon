@@ -45,7 +45,7 @@ public class GameMaster : MonoBehaviour
 
     private void Update()
     {
-        foreach (Card card in FindObjectsOfType<Card>())
+        foreach (Card card in FindObjectsOfType<Card>() as Card[])
         {
             if (card.isDragging == true)
             {
@@ -64,16 +64,17 @@ public class GameMaster : MonoBehaviour
                 }
             }
         }
-            if (selectedUnit != null)
-            {
-                highlight.SetActive(true);
-                highlight.transform.position = selectedUnit.transform.position + new Vector3(0, 0, -8);
-            }
-            else
-            {
-                highlight.SetActive(false);
-            }
-        
+
+        if (selectedUnit != null)
+        {
+            highlight.SetActive(true);
+            highlight.transform.position = selectedUnit.transform.position + new Vector3(0, 0, -8);
+        }
+        else
+        {
+            highlight.SetActive(false);
+        }
+
         if (blueGold >= 1000) blueGold = 999;
         if (redGold >= 1000) redGold = 999;
 
@@ -172,5 +173,4 @@ public class GameMaster : MonoBehaviour
         yield return new WaitForSeconds(1.5f);
         canTurnChange = true;
     }
-
 }

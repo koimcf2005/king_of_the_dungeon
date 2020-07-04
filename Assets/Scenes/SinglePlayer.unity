@@ -26120,11 +26120,6 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5749026175390757780, guid: c22797c7f0526d841bd4ebc5b1fd94ae,
         type: 3}
-      propertyPath: price
-      value: 60
-      objectReference: {fileID: 0}
-    - target: {fileID: 5749026175390757780, guid: c22797c7f0526d841bd4ebc5b1fd94ae,
-        type: 3}
       propertyPath: unit
       value: 
       objectReference: {fileID: 1530170596}
@@ -27268,11 +27263,6 @@ PrefabInstance:
       propertyPath: unit
       value: 
       objectReference: {fileID: 198202987}
-    - target: {fileID: 3561694848328854765, guid: 2b0e7f169b6550849aeb6111bb602535,
-        type: 3}
-      propertyPath: price
-      value: 60
-      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 2b0e7f169b6550849aeb6111bb602535, type: 3}
 --- !u!1001 &1634160122057558578
@@ -27537,11 +27527,6 @@ PrefabInstance:
         type: 3}
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
-      objectReference: {fileID: 0}
-    - target: {fileID: 5669795196841746150, guid: 7f4f80fa502e38e4394a03faeeda7557,
-        type: 3}
-      propertyPath: price
-      value: 65
       objectReference: {fileID: 0}
     - target: {fileID: 5669795196841746150, guid: 7f4f80fa502e38e4394a03faeeda7557,
         type: 3}
@@ -38510,11 +38495,6 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 1918906228}
-    - target: {fileID: 5909677112923319086, guid: ef61834f5867d9045a46a03bd919d15a,
-        type: 3}
-      propertyPath: m_IsActive
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6143407887541282115, guid: ef61834f5867d9045a46a03bd919d15a,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -38872,6 +38852,7 @@ MonoBehaviour:
   normAttackDmg: 0
   attackSpeed: 0
   isEnraged: 0
+  isWeakened: 0
   health: 20
   shieldsLeft: 0
   defenceDamage: 0
@@ -38898,6 +38879,7 @@ MonoBehaviour:
   rageEffect: {fileID: 0}
   yellEffect: {fileID: 0}
   poisonEffect: {fileID: 0}
+  weaknessEffect: {fileID: 0}
   crystalPos: {fileID: 1918906228}
   arrow: {fileID: 2345532328245530976, guid: 2dbe59a8eb80f3a4bbb91bd82d636075, type: 3}
   camAnim: {fileID: 0}
@@ -39155,6 +39137,7 @@ MonoBehaviour:
   normAttackDmg: 0
   attackSpeed: 0
   isEnraged: 0
+  isWeakened: 0
   health: 20
   shieldsLeft: 0
   defenceDamage: 0
@@ -39181,6 +39164,7 @@ MonoBehaviour:
   rageEffect: {fileID: 0}
   yellEffect: {fileID: 0}
   poisonEffect: {fileID: 0}
+  weaknessEffect: {fileID: 0}
   crystalPos: {fileID: 1918906228}
   arrow: {fileID: 2345532328245530976, guid: 2dbe59a8eb80f3a4bbb91bd82d636075, type: 3}
   camAnim: {fileID: 0}
@@ -39489,11 +39473,6 @@ PrefabInstance:
       propertyPath: unit
       value: 
       objectReference: {fileID: 2114784717}
-    - target: {fileID: 3657585937705616617, guid: d0405936c17004b41b88aa9acf2c7f3f,
-        type: 3}
-      propertyPath: price
-      value: 30
-      objectReference: {fileID: 0}
     - target: {fileID: 3657585937705616620, guid: d0405936c17004b41b88aa9acf2c7f3f,
         type: 3}
       propertyPath: m_LocalPosition.x

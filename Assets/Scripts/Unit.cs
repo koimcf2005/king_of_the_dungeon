@@ -45,6 +45,7 @@ public class Unit : MonoBehaviour
     public int normAttackDmg;
     public float attackSpeed;
     public bool isEnraged;
+    public bool isWeakened;
 
     List<Unit> enemiesInRange = new List<Unit>();
     List<Unit> alliesInRange = new List<Unit>();
@@ -80,6 +81,7 @@ public class Unit : MonoBehaviour
     public GameObject rageEffect;
     public ParticleSystem yellEffect;
     public GameObject poisonEffect;
+    public GameObject weaknessEffect;
     [Space]
     [Header("Rand")]
     public Transform crystalPos;
@@ -163,10 +165,16 @@ public class Unit : MonoBehaviour
             attackDamage = normAttackDmg + 1;
             rageEffect.SetActive(true);
         }
+        else if (isWeakened == true)
+        {
+            attackDamage = normAttackDmg - 1;
+            weaknessEffect.SetActive(true);
+        }
         else
         {
             attackDamage = normAttackDmg;
             rageEffect.SetActive(false);
+            weaknessEffect.SetActive(false);
         }
         if (isPoisoned == true)
         {
@@ -176,6 +184,13 @@ public class Unit : MonoBehaviour
         {
             poisonEffect.SetActive(false);
         }
+
+        if (isEnraged == true && isWeakened == true)
+        {
+            isEnraged = false;
+            isWeakened = false;
+        }
+
     }
 
     private void OnMouseDown()

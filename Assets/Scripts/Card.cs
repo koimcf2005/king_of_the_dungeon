@@ -20,6 +20,7 @@ public class Card : MonoBehaviour
     public GameObject coin;
     public GameObject N1;
     public GameObject N2;
+    public GameObject highlight;
 
     Animator camAnim;
     GameMaster gm;
@@ -62,7 +63,6 @@ public class Card : MonoBehaviour
         }
         else
         {
-            movePositions = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y), 10);
             foreach (Tile tile in FindObjectsOfType<Tile>())
             {
                 if (tile.transform.position == movePositions && tile.isWalkable == true)
@@ -133,6 +133,7 @@ public class Card : MonoBehaviour
 
     void Update()
     {
+        movePositions = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y - 0.5f), 10);
         foreach (Card card in FindObjectsOfType<Card>())
         {
             if (this.isInDeck == true && this.cardNumber == 1)
@@ -160,6 +161,19 @@ public class Card : MonoBehaviour
                 }
             }
             isInDeck = false;
+            if (deck.gameHasStarted && movePositions.x >= -7 && movePositions.x <= 7 && movePositions.y >= 9 && movePositions.y <= 15)
+            {
+                highlight.transform.position = movePositions + new Vector3(0, 0, -5);
+                highlight.SetActive(true);
+            }
+            else
+            {
+                highlight.SetActive(false);
+            }
+        }
+        else
+        {
+            highlight.SetActive(false);
         }
         if (returnHome == true)
         {
