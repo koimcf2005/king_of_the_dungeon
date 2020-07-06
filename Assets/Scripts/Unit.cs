@@ -12,6 +12,8 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     public bool hasAttacked;
     [HideInInspector]
+    public bool hasBuffed;
+    [HideInInspector]
     public int price;
 
     public int playerNumber;
@@ -26,6 +28,7 @@ public class Unit : MonoBehaviour
     public bool isThief;
     public bool isBerserk;
     public bool isArmorer;
+    public bool isNox;
     public bool isCrystal;
     public bool isInstance;
     public bool spawnedFromCard;
@@ -84,6 +87,7 @@ public class Unit : MonoBehaviour
     public GameObject weaknessEffect;
     [Space]
     [Header("Rand")]
+    public GameObject rayCollider;
     public Transform crystalPos;
     public SpawnEffect arrow;
     [HideInInspector]
@@ -190,7 +194,6 @@ public class Unit : MonoBehaviour
             isEnraged = false;
             isWeakened = false;
         }
-
     }
 
     private void OnMouseDown()
@@ -206,10 +209,10 @@ public class Unit : MonoBehaviour
                 ResetAttackHighlights();
                 return;
             }
-            if (units.alliesInRange.Contains(this) && gm.selectedUnit.hasAttacked == false && gm.selectedUnit.isArmorer == true)
+            if (units.alliesInRange.Contains(this) && gm.selectedUnit.hasBuffed == false && gm.selectedUnit.isArmorer == true)
             {
                 StartCoroutine(Armor(this, gm.selectedUnit));
-                gm.selectedUnit.hasAttacked = true;
+                gm.selectedUnit.hasBuffed = true;
                 ResetAttackHighlights();
                 return;
             }
@@ -260,6 +263,7 @@ public class Unit : MonoBehaviour
 
     public IEnumerator Armor(Unit ally, Unit armorer)
     {
+        UpdateDirection(armorer.transform, ally.transform, armorer, true);
         armorer.anim.SetTrigger("Armor");
         yield return new WaitForSeconds(0.848f);
         Instantiate(armorer.sparkPar, armorer.transform.position + new Vector3(-0.09f, 0), Quaternion.identity);
@@ -290,7 +294,7 @@ public class Unit : MonoBehaviour
             unit.isAttacking = true;
         }
 
-        UpdateDirection(healer.transform, ally.transform, healer);
+        UpdateDirection(healer.transform, ally.transform, healer, true);
         healer.anim.SetTrigger("Attack");
         yield return new WaitForSeconds(1);
         camAnim.SetTrigger("Shake");
@@ -317,12 +321,14 @@ public class Unit : MonoBehaviour
         int deltDamage = gm.selectedUnit.attackDamage - enemy.armor; // Gets the damage vals
         int takenDamage = enemy.defenceDamage - gm.selectedUnit.armor;
 
-        UpdateDirection(gm.selectedUnit.transform, enemy.transform, gm.selectedUnit); // Updates the units facing pos
+        UpdateDirection(gm.selectedUnit.transform, enemy.transform, gm.selectedUnit, false); // Updates the units facing pos
 
         gm.selectedUnit.anim.SetTrigger("Attack");
 
-        if (gm.selectedUnit.isArcher == false) yield return new WaitForSeconds(0.66f);
-
+        if (gm.selectedUnit.isNox == false && gm.selectedUnit.isArcher == false)
+        {
+            yield return new WaitForSeconds(0.66f);
+        }
         else // Arrow Spawning ******************************************************************************************************
         {
             yield return new WaitForSeconds(1.4f);
@@ -359,10 +365,12 @@ public class Unit : MonoBehaviour
             DamageIcon instance = Instantiate(dmgIcon, enemy.transform.position, Quaternion.identity);
             instance.Setup(deltDamage);
             enemy.health -= deltDamage;
+            if (gm.selectedUnit.isNox == true) enemy.isPoisoned = true;
         }
         else
         {
             Instantiate(shieldIcon, enemy.transform.position + new Vector3(0, 0.2f, 0), Quaternion.identity);
+            if (gm.selectedUnit.isNox == true) enemy.isPoisoned = true;
         }
 
         if (enemy.health <= 0)
@@ -443,11 +451,11 @@ public class Unit : MonoBehaviour
         {
             yield return new WaitForSeconds(0.3f);
 
-            UpdateDirection(enemy.transform, gm.selectedUnit.transform, enemy);
+            UpdateDirection(enemy.transform, gm.selectedUnit.transform, enemy, false);
 
             enemy.anim.SetTrigger("Attack");
 
-            if (enemy.isArcher == false) yield return new WaitForSeconds(0.66f);
+            if (enemy.isArcher == false && enemy.isNox == false) yield return new WaitForSeconds(0.66f);
             else // Enemy arrow spawning *************************************************************************************
             {
                 yield return new WaitForSeconds(1.4f);
@@ -483,10 +491,12 @@ public class Unit : MonoBehaviour
                 DamageIcon instance = Instantiate(dmgIcon, gm.selectedUnit.transform.position, Quaternion.identity);
                 instance.Setup(takenDamage);
                 gm.selectedUnit.health -= takenDamage;
+                if (enemy.isNox == true) gm.selectedUnit.isPoisoned = true;
             }
             else
             {
                 Instantiate(shieldIcon, gm.selectedUnit.transform.position, Quaternion.identity);
+                if (enemy.isNox == true) gm.selectedUnit.isPoisoned = true;
             }
 
             if (gm.selectedUnit.health <= 0)
@@ -584,7 +594,15 @@ public class Unit : MonoBehaviour
             {
                 if (tile.IsClear() == true)
                 {
-                    tile.Highlight();
+                    int layer_mask = LayerMask.GetMask("RayCollider");
+                    RaycastHit2D ray = Physics2D.Raycast(tile.transform.position, transform.position - tile.transform.position, 100, layer_mask);
+                    Debug.DrawRay(tile.transform.position, transform.position - tile.transform.position, Color.red, 5, false);
+                    Debug.Log(ray.collider.name);
+                    if (ray.collider.gameObject == rayCollider.gameObject)
+                    {
+                        Debug.Log("I HIT THE TARGET!!!");
+                        tile.Highlight();
+                    }
                 }
             }
         }
@@ -607,9 +625,9 @@ public class Unit : MonoBehaviour
             }
             if (Mathf.Abs(transform.position.y - unit.transform.position.y) <= attackRange && Mathf.Abs(transform.position.x - unit.transform.position.x) <= attackRange)
             {
-                if (isHealer == true || isArmorer == true)
+                if (isHealer == true && hasAttacked == false|| isArmorer == true && hasBuffed == false)
                 {
-                    if (unit.playerNumber == gm.playerTurn && hasAttacked == false && gm.selectedUnit != unit && unit.health < unit.maxHealth + 1 && unit.shieldsLeft == 0 && unit.isCrystal == false)
+                    if (unit.playerNumber == gm.playerTurn && gm.selectedUnit != unit && unit.health < unit.maxHealth + 1 && unit.shieldsLeft == 0 && unit.isCrystal == false)
                     {
                         if (playerNumber == 1 && gm.blueGold >= 15 || playerNumber == 2 && gm.redGold >= 15 || isHealer == true)
                         {
@@ -708,7 +726,7 @@ public class Unit : MonoBehaviour
         healthIndicator.transform.position = new Vector3(16, 12, 0);
     }
 
-    public void UpdateDirection(Transform thisTransform, Transform facingTransform, Unit unit)
+    public void UpdateDirection(Transform thisTransform, Transform facingTransform, Unit unit, bool isBuffing)
     {
         if (thisTransform.position.x < facingTransform.transform.position.x)
         {
@@ -718,11 +736,11 @@ public class Unit : MonoBehaviour
         {
             unit.anim.SetTrigger("Left");
         }
-        if (thisTransform.position.y < facingTransform.position.y && unit.isArcher != true && unit.isHealer != true)
+        if (thisTransform.position.y < facingTransform.position.y && unit.isArcher != true && unit.isNox != true && isBuffing != true)
         {
             unit.anim.SetTrigger("Up");
         }
-        if (thisTransform.position.y > facingTransform.position.y && unit.isArcher != true && unit.isHealer != true)
+        if (thisTransform.position.y > facingTransform.position.y && unit.isArcher != true && unit.isNox != true && isBuffing != true)
         {
             unit.anim.SetTrigger("Down");
         }

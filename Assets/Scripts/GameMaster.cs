@@ -53,13 +53,16 @@ public class GameMaster : MonoBehaviour
                 ResetTiles();
                 foreach (Tile tile in FindObjectsOfType<Tile>())
                 {
-                    if (card.cardNumber == 1 && card.price <= blueGold)
+                    if (card.isSpell == false)
                     {
-                        if (tile.IsClear() && tile.transform.position.x > 0) tile.Highlight();
-                    }
-                    if (card.cardNumber == 2 && card.price <= redGold)
-                    {
-                        if (tile.IsClear() && tile.transform.position.x < 0) tile.Highlight();
+                        if (card.cardNumber == 1 && card.price <= blueGold)
+                        {
+                            if (tile.IsClear() && tile.transform.position.x > 0) tile.Highlight();
+                        }
+                        if (card.cardNumber == 2 && card.price <= redGold)
+                        {
+                            if (tile.IsClear() && tile.transform.position.x < 0) tile.Highlight();
+                        }
                     }
                 }
             }

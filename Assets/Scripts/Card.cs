@@ -5,6 +5,7 @@ using UnityEngine;
 public class Card : MonoBehaviour
 {
     public bool isDragging;
+    public bool isSpell;
     private bool returnHome;
     private bool hasN;
     public bool isInDeck;
@@ -17,6 +18,7 @@ public class Card : MonoBehaviour
     private Vector3 normScale;
     public Vector3 movePositions;
     public Unit unit;
+    public GameObject spell;
     public GameObject coin;
     public GameObject N1;
     public GameObject N2;
@@ -41,6 +43,11 @@ public class Card : MonoBehaviour
     }
     public void OnMouseUp()
     {
+        foreach (Unit unit in FindObjectsOfType<Unit>())
+        {
+            unit.attackHighlight.SetActive(false);
+        }
+
         GameObject slot = GameObject.Find("Slot (" + order(isOverSlot, true).ToString() + ")");
         if (deck.gameHasStarted == false)
         {
@@ -77,6 +84,24 @@ public class Card : MonoBehaviour
                     }
                     slotInDeck = 9;
                     returnPos = deck.deckSprite.transform.position;
+                }
+
+                else if (isSpell == true && movePositions.x >= -7 && movePositions.x <= 7 && movePositions.y >= 9 && movePositions.y <= 15 && cardNumber == 1 && price <= gm.blueGold ||
+                         isSpell == true && movePositions.x >= -7 && movePositions.x <= 7 && movePositions.y >= 9 && movePositions.y <= 15 && cardNumber == 2 && price <= gm.redGold)
+                {
+                    if (tile.transform.position == movePositions)
+                    {
+                        GameObject spellInstance = Instantiate(spell, tile.transform.position, Quaternion.identity);
+                        foreach (Card card in FindObjectsOfType<Card>())
+                        {
+                            card.UpdateCardSlot(slotInDeck, cardNumber);
+                        }
+                        slotInDeck = 9;
+                        returnPos = deck.deckSprite.transform.position;
+                        isDragging = false;
+                        if (cardNumber == 1) gm.blueGold -= price;
+                        if (cardNumber == 2) gm.redGold -= price;
+                    }
                 }
                 else 
                 {
@@ -161,20 +186,36 @@ public class Card : MonoBehaviour
                 }
             }
             isInDeck = false;
-            if (deck.gameHasStarted && movePositions.x >= -7 && movePositions.x <= 7 && movePositions.y >= 9 && movePositions.y <= 15)
+
+            if (isSpell == true && deck.gameHasStarted == true && cardNumber == 1 && price <= gm.blueGold || isSpell == true && deck.gameHasStarted == true && cardNumber == 2 && price <= gm.redGold)
             {
-                highlight.transform.position = movePositions + new Vector3(0, 0, -5);
-                highlight.SetActive(true);
+                foreach (Unit unit in FindObjectsOfType<Unit>())
+                {
+                    if (Mathf.Abs(movePositions.x - unit.transform.position.x) <= 1 && Mathf.Abs(movePositions.y - unit.transform.position.y) <= 1)
+                    {
+                        unit.attackHighlight.SetActive(true);
+                    }
+                    else
+                    {
+                        unit.attackHighlight.SetActive(false);
+                    }
+                }
             }
-            else
-            {
-                highlight.SetActive(false);
-            }
+
+            //if (deck.gameHasStarted && movePositions.x >= -7 && movePositions.x <= 7 && movePositions.y >= 9 && movePositions.y <= 15)
+            //{
+                //highlight.transform.position = movePositions + new Vector3(0, 0, -5);
+                //highlight.SetActive(true);
+            //}
+            //else
+            //{
+                //highlight.SetActive(false);
+            //}
         }
-        else
-        {
-            highlight.SetActive(false);
-        }
+        //else
+        //{
+            //highlight.SetActive(false);
+        //}
         if (returnHome == true)
         {
             isInDeck = false;

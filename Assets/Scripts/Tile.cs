@@ -14,6 +14,8 @@ public class Tile : MonoBehaviour
 
     public Color highlightedColor;
     public bool isWalkable;
+    public GameObject highlight;
+
     GameMaster gm;
 
     void Start()
@@ -23,6 +25,24 @@ public class Tile : MonoBehaviour
         rend.sprite = tileGraphics[randTile];
 
         gm = FindObjectOfType<GameMaster>();
+    }
+
+    void Update()
+    {
+        Vector2 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+        Vector2 mousePosRounded = new Vector2(Mathf.Round(mousePosition.x), Mathf.Round(mousePosition.y));
+
+        foreach (Card card in FindObjectsOfType<Card>())
+        {
+            if (card.isDragging == true && card.movePositions.x == transform.position.x && card.movePositions.y == transform.position.y && isWalkable == true)
+            {
+                highlight.SetActive(true);
+            }
+            if (mousePosRounded.x != transform.position.x || mousePosRounded.y != transform.position.y)
+            {
+                Invoke("DeselectHighlight", 0.02f);
+            }
+        }
     }
 
     private void OnMouseEnter()
@@ -43,7 +63,8 @@ public class Tile : MonoBehaviour
         if (obstacle != null)
         {
             return false;
-        } else
+        }
+        else
         {
             return true;
         }
@@ -67,6 +88,11 @@ public class Tile : MonoBehaviour
         {
             gm.selectedUnit.Move(this.transform.position);
         }
+    }
+
+    private void DeselectHighlight()
+    {
+        highlight.SetActive(false);
     }
 
 }
