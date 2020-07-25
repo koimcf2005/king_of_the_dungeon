@@ -10,10 +10,20 @@ public class Deck : MonoBehaviour
     public bool[] cardsInBlueSlot;
     public bool[] cardsInRedSlot;
     public GameObject[] slotPos;
-    public bool gameHasStarted;
     public GameObject deckSprite;
+    public GameObject blueCards;
+    public GameObject blueBlanks;
+    [HideInInspector]
+    public float blueBlanksNormY;
+    public GameObject redCards;
+    public bool gameHasStarted;
     Card card;
     GameMaster gm;
+
+    private void Start()
+    {
+        blueBlanksNormY = blueBlanks.transform.position.y;
+    }
 
     private void Update()
     {
@@ -29,6 +39,56 @@ public class Deck : MonoBehaviour
             }
             if (card.isInDeck == false && gameHasStarted == true) Destroy(card.gameObject);
         }
+
+        /**if (gameHasStarted == false)
+        {
+            Vector2 mousePos = Camera.main.ScreenToWorldPoint(Input.mousePosition);
+            foreach (Card card in FindObjectsOfType<Card>())
+            {
+                card.returnPos.x = card.blankCard.transform.position.x;
+                card.returnPos.y = card.blankCard.transform.position.y;
+                if (mousePos.x < -3.7 && card.transform.position.x > -10.7 && card.transform.position.x < -3.7)
+                {
+                    Vector3 cardPos = card.transform.position;
+                    Vector2 blueBlankPos = blueBlanks.transform.position;
+
+                    float cardMaxHeight = card.normPos.y + 2.35f;
+                    float dist = card.normPos.y - card.transform.position.y;
+
+                    float blanksMaxHeight = blueBlanksNormY + 2.35f;
+
+                    cardPos.y += Input.mouseScrollDelta.y * -0.575f;
+                    blueBlankPos.y += Input.mouseScrollDelta.y * -0.02f;
+                    card.transform.position = cardPos;
+                    blueBlanks.transform.position = blueBlankPos;
+
+                    if (card.transform.position.y > cardMaxHeight)
+                    {
+                        cardPos.y = cardMaxHeight;
+                        card.transform.position = cardPos;
+                    }
+
+                    if (blueBlanks.transform.position.y > blanksMaxHeight)
+                    {
+                        blueBlankPos.y = blanksMaxHeight;
+                        blueBlanks.transform.position = blueBlankPos;
+                    }
+
+                    if (card.transform.position.y < card.normPos.y)
+                    {
+                        cardPos.y = card.normPos.y;
+                        card.transform.position = cardPos;
+                    }
+
+                    if (blueBlanks.transform.position.y < blueBlanksNormY)
+                    {
+                        blueBlankPos.y = blueBlanksNormY;
+                        blueBlanks.transform.position = blueBlankPos;
+                    }
+                }
+            }
+        }
+        */
     }
     public int UniqueRandomBlue()
     {

@@ -14,7 +14,8 @@ public class Card : MonoBehaviour
     public int price;
     private float hoverAmount;
     public bool[] isOverSlot;
-    private Vector3 returnPos;
+    public Vector3 returnPos;
+    public Vector3 normPos;
     private Vector3 normScale;
     public Vector3 movePositions;
     public Unit unit;
@@ -23,13 +24,16 @@ public class Card : MonoBehaviour
     public GameObject N1;
     public GameObject N2;
     public GameObject highlight;
+    public GameObject blankCard;
 
+    [HideInInspector]
     Animator camAnim;
     GameMaster gm;
     Deck deck;
 
     private void Start()
     {
+        normPos = transform.position;
         returnPos = transform.position;
         normScale = transform.localScale;
         deck = FindObjectOfType<Deck>();
@@ -86,8 +90,8 @@ public class Card : MonoBehaviour
                     returnPos = deck.deckSprite.transform.position;
                 }
 
-                else if (isSpell == true && movePositions.x >= -7 && movePositions.x <= 7 && movePositions.y >= 9 && movePositions.y <= 15 && cardNumber == 1 && price <= gm.blueGold ||
-                         isSpell == true && movePositions.x >= -7 && movePositions.x <= 7 && movePositions.y >= 9 && movePositions.y <= 15 && cardNumber == 2 && price <= gm.redGold)
+                else if (isSpell == true && movePositions.x >= -7 && movePositions.x <= 6 && movePositions.y >= 9 && movePositions.y <= 15 && cardNumber == 1 && price <= gm.blueGold ||
+                         isSpell == true && movePositions.x >= -6 && movePositions.x <= 7 && movePositions.y >= 9 && movePositions.y <= 15 && cardNumber == 2 && price <= gm.redGold)
                 {
                     if (tile.transform.position == movePositions)
                     {
@@ -191,7 +195,8 @@ public class Card : MonoBehaviour
             {
                 foreach (Unit unit in FindObjectsOfType<Unit>())
                 {
-                    if (Mathf.Abs(movePositions.x - unit.transform.position.x) <= 1 && Mathf.Abs(movePositions.y - unit.transform.position.y) <= 1)
+                    if (Mathf.Abs(movePositions.x - unit.transform.position.x) <= 1 && Mathf.Abs(movePositions.y - unit.transform.position.y) <= 1 && cardNumber == 1 && movePositions.x <= 6 && movePositions.x >= -7 && movePositions.y >= 9 && movePositions.y <= 15
+                     || Mathf.Abs(movePositions.x - unit.transform.position.x) <= 1 && Mathf.Abs(movePositions.y - unit.transform.position.y) <= 1 && cardNumber == 2 && movePositions.x >= -6 && movePositions.x <= 7 && movePositions.y >= 9 && movePositions.y <= 15)
                     {
                         unit.attackHighlight.SetActive(true);
                     }
@@ -253,6 +258,7 @@ public class Card : MonoBehaviour
 
             float dist = transform.position.y - returnPos.y;
             if (dist < solidDistance) dist = solidDistance;
+            if (dist > solidDistance + 2) dist = 2;
             GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, solidDistance / dist);
             coin.GetComponent<SpriteRenderer>().color = new Color(1f, 1f, 1f, solidDistance / dist);
             N1.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 0f, solidDistance / dist);

@@ -21,7 +21,7 @@ public class CoinColumn : MonoBehaviour
 
         foreach (Unit otherKing in FindObjectsOfType<Unit>())
         {
-            if (king.isKing == true)
+            if (king.nameID == "king")
             {
                 if (Mathf.Abs(king.transform.position.x - transform.position.x) + Mathf.Abs(king.transform.position.y - transform.position.y) <= 1)
                 {
@@ -31,7 +31,7 @@ public class CoinColumn : MonoBehaviour
                     columnNumber = king.playerNumber;
                     if (canSpawnPar == true) Instantiate(pars[king.playerNumber - 1], transform.position, Quaternion.identity); canSpawnPar = false;
                 }
-                else if (Mathf.Abs(otherKing.transform.position.x - transform.position.x) + Mathf.Abs(otherKing.transform.position.y - transform.position.y) <= 1 && otherKing.isKing == true)
+                else if (Mathf.Abs(otherKing.transform.position.x - transform.position.x) + Mathf.Abs(otherKing.transform.position.y - transform.position.y) <= 1 && otherKing.nameID == "king")
                 {
 
                     if (canSpawnPar == true)

@@ -33,7 +33,7 @@ public class GameMaster : MonoBehaviour
     {
         deck = FindObjectOfType<Deck>();
         blueGoldText.text = "  " + blueGold.ToString();
-        redGoldText.text = " " + redGold.ToString();
+        redGoldText.text = "  " + redGold.ToString();
     }
     public void ResetTiles()
     {
@@ -84,8 +84,9 @@ public class GameMaster : MonoBehaviour
         if (blueGold < 10) blueGoldText.text = "  " + blueGold.ToString();
         else if (blueGold < 100) blueGoldText.text = " " + blueGold.ToString();
         else if (blueGold < 1000) blueGoldText.text = blueGold.ToString();
-        redGoldText.text = redGold.ToString();
-
+        if (redGold < 10) redGoldText.text = "  " + redGold.ToString();
+        else if (redGold < 100) redGoldText.text = " " + redGold.ToString();
+        else if (redGold < 1000) redGoldText.text = redGold.ToString();
     }
 
     public void UpdateMovesLeft()
@@ -118,7 +119,7 @@ public class GameMaster : MonoBehaviour
             unit.ResetAttackHighlights();
             unit.hasAttacked = false;
             unit.isAttacking = false;
-            if (unit.isElite == true) unit.attacksLeft = 2;
+            if (unit.nameID == "elite") unit.attacksLeft = 2;
             else unit.attacksLeft = 1;
             if (unit.isPoisoned == true)
             {

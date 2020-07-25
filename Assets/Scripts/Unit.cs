@@ -19,16 +19,8 @@ public class Unit : MonoBehaviour
     public int playerNumber;
 
     [Space]
-    [Header("Unit Type Bools")]
-    public bool isArcher;
-    public bool isBrute;
-    public bool isHealer;
-    public bool isElite;
-    public bool isKing;
-    public bool isThief;
-    public bool isBerserk;
-    public bool isArmorer;
-    public bool isNox;
+    [Header("IDs & Unit Type Bools")]
+    public string nameID;
     public bool isCrystal;
     public bool isInstance;
     public bool spawnedFromCard;
@@ -202,14 +194,14 @@ public class Unit : MonoBehaviour
 
         foreach (Unit units in FindObjectsOfType<Unit>()) // Checks if the unit can be healed
         {
-            if (units.alliesInRange.Contains(this) && gm.selectedUnit.hasAttacked == false && gm.selectedUnit.isHealer == true)
+            if (units.alliesInRange.Contains(this) && gm.selectedUnit.hasAttacked == false && gm.selectedUnit.nameID == "healer")
             {
                 StartCoroutine(Heal(this, gm.selectedUnit));
                 gm.selectedUnit.hasAttacked = true;
                 ResetAttackHighlights();
                 return;
             }
-            if (units.alliesInRange.Contains(this) && gm.selectedUnit.hasBuffed == false && gm.selectedUnit.isArmorer == true)
+            if (units.alliesInRange.Contains(this) && gm.selectedUnit.hasBuffed == false && gm.selectedUnit.nameID == "armorer")
             {
                 StartCoroutine(Armor(this, gm.selectedUnit));
                 gm.selectedUnit.hasBuffed = true;
@@ -246,8 +238,8 @@ public class Unit : MonoBehaviour
                     gm.ResetTiles();
                     GetEnemies();
                     GetWalkableTiles();
-                }
             }
+        }
         Collider2D col = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.15f); // Gets the enemy
         Unit unit = col.GetComponent<Unit>();
         if (gm.selectedUnit != null)
@@ -325,7 +317,7 @@ public class Unit : MonoBehaviour
 
         gm.selectedUnit.anim.SetTrigger("Attack");
 
-        if (gm.selectedUnit.isNox == false && gm.selectedUnit.isArcher == false)
+        if (gm.selectedUnit.nameID != "nox" && gm.selectedUnit.nameID != "archer")
         {
             yield return new WaitForSeconds(0.66f);
         }
@@ -365,12 +357,12 @@ public class Unit : MonoBehaviour
             DamageIcon instance = Instantiate(dmgIcon, enemy.transform.position, Quaternion.identity);
             instance.Setup(deltDamage);
             enemy.health -= deltDamage;
-            if (gm.selectedUnit.isNox == true) enemy.isPoisoned = true;
+            if (gm.selectedUnit.nameID == "nox") enemy.isPoisoned = true;
         }
         else
         {
             Instantiate(shieldIcon, enemy.transform.position + new Vector3(0, 0.2f, 0), Quaternion.identity);
-            if (gm.selectedUnit.isNox == true) enemy.isPoisoned = true;
+            if (gm.selectedUnit.nameID == "nox") enemy.isPoisoned = true;
         }
 
         if (enemy.health <= 0)
@@ -379,7 +371,7 @@ public class Unit : MonoBehaviour
             Destroy(enemy.gameObject);
             gm.selectedUnit.GetWalkableTiles();
 
-            if (gm.selectedUnit.isThief == true)
+            if (gm.selectedUnit.nameID == "thief")
             {
                 if (gm.selectedUnit.playerNumber == 1 && gm.redGold >= 5)
                 {
@@ -406,7 +398,7 @@ public class Unit : MonoBehaviour
                     coin2.Play();
                 }
             }
-            if (gm.selectedUnit.isBerserk == true)
+            if (gm.selectedUnit.nameID == "berserk")
             {
                 ParticleSystem par = Instantiate(gm.selectedUnit.yellEffect, gm.selectedUnit.transform.position, Quaternion.identity);
                 par.Play();
@@ -414,7 +406,7 @@ public class Unit : MonoBehaviour
                 {
                     if (Mathf.Abs(gm.selectedUnit.transform.position.x - unit.transform.position.x) <= 1
                      && Mathf.Abs(gm.selectedUnit.transform.position.y - unit.transform.position.y) <= 1
-                     && unit.isHealer == false && unit.playerNumber == gm.selectedUnit.playerNumber || unit == gm.selectedUnit)
+                     && unit.nameID == "healer" && unit.playerNumber == gm.selectedUnit.playerNumber || unit == gm.selectedUnit)
                     {
                         unit.isEnraged = true;
                     }
@@ -427,7 +419,7 @@ public class Unit : MonoBehaviour
         }
         else
         {
-            if (gm.selectedUnit.isThief == true)
+            if (gm.selectedUnit.nameID == "thief")
             {
                 if (gm.selectedUnit.playerNumber == 1 && gm.redGold >= 5)
                 {
@@ -447,7 +439,7 @@ public class Unit : MonoBehaviour
         }
 
         if (Mathf.Abs(gm.selectedUnit.transform.position.x - enemy.transform.position.x) // Checks to see if the enemy can attack back
-          + Mathf.Abs(gm.selectedUnit.transform.position.y - enemy.transform.position.y) <= 1 && enemy.isHealer == false && enemy.isCrystal == false || enemy.tag == "Range")
+          + Mathf.Abs(gm.selectedUnit.transform.position.y - enemy.transform.position.y) <= 1 && enemy.nameID == "healer" && enemy.isCrystal == false || enemy.tag == "Range")
         {
             yield return new WaitForSeconds(0.3f);
 
@@ -455,7 +447,7 @@ public class Unit : MonoBehaviour
 
             enemy.anim.SetTrigger("Attack");
 
-            if (enemy.isArcher == false && enemy.isNox == false) yield return new WaitForSeconds(0.66f);
+            if (enemy.nameID == "archer" && enemy.nameID == "nox") yield return new WaitForSeconds(0.66f);
             else // Enemy arrow spawning *************************************************************************************
             {
                 yield return new WaitForSeconds(1.4f);
@@ -491,17 +483,17 @@ public class Unit : MonoBehaviour
                 DamageIcon instance = Instantiate(dmgIcon, gm.selectedUnit.transform.position, Quaternion.identity);
                 instance.Setup(takenDamage);
                 gm.selectedUnit.health -= takenDamage;
-                if (enemy.isNox == true) gm.selectedUnit.isPoisoned = true;
+                if (enemy.nameID == "nox") gm.selectedUnit.isPoisoned = true;
             }
             else
             {
                 Instantiate(shieldIcon, gm.selectedUnit.transform.position, Quaternion.identity);
-                if (enemy.isNox == true) gm.selectedUnit.isPoisoned = true;
+                if (enemy.nameID == "nox") gm.selectedUnit.isPoisoned = true;
             }
 
             if (gm.selectedUnit.health <= 0)
             {
-                if (enemy.isBerserk == true)
+                if (enemy.nameID == "berserk")
                 {
                     ParticleSystem par = Instantiate(enemy.yellEffect, enemy.transform.position, Quaternion.identity);
                     par.Play();
@@ -509,13 +501,13 @@ public class Unit : MonoBehaviour
                     {
                         if (Mathf.Abs(enemy.transform.position.x - unit.transform.position.x) <= 1
                          && Mathf.Abs(enemy.transform.position.y - unit.transform.position.y) <= 1
-                         && unit.isHealer == false && unit.playerNumber == enemy.playerNumber || unit == enemy)
+                         && unit.nameID == "healer" && unit.playerNumber == enemy.playerNumber || unit == enemy)
                         {
                             unit.isEnraged = true;
                         }
                     }
                 }
-                if (enemy.isThief == true)
+                if (enemy.nameID == "thief")
                 {
                     if (enemy.playerNumber == 1 && gm.redGold >= 5)
                     {
@@ -615,7 +607,7 @@ public class Unit : MonoBehaviour
 
         foreach (Unit unit in FindObjectsOfType<Unit>())
         {
-            if (isHealer == false && Mathf.Abs(transform.position.y - unit.transform.position.y) + Mathf.Abs(transform.position.x - unit.transform.position.x) <= attackRange)
+            if (nameID != "healer" && Mathf.Abs(transform.position.y - unit.transform.position.y) + Mathf.Abs(transform.position.x - unit.transform.position.x) <= attackRange)
             {
                 if (unit.playerNumber != gm.playerTurn && hasAttacked == false)
                 {
@@ -625,14 +617,14 @@ public class Unit : MonoBehaviour
             }
             if (Mathf.Abs(transform.position.y - unit.transform.position.y) <= attackRange && Mathf.Abs(transform.position.x - unit.transform.position.x) <= attackRange)
             {
-                if (isHealer == true && hasAttacked == false|| isArmorer == true && hasBuffed == false)
+                if (nameID == "healer" && hasAttacked == false|| nameID == "armorer" && hasBuffed == false)
                 {
                     if (unit.playerNumber == gm.playerTurn && gm.selectedUnit != unit && unit.health < unit.maxHealth + 1 && unit.shieldsLeft == 0 && unit.isCrystal == false)
                     {
-                        if (playerNumber == 1 && gm.blueGold >= 15 || playerNumber == 2 && gm.redGold >= 15 || isHealer == true)
+                        if (playerNumber == 1 && gm.blueGold >= 15 || playerNumber == 2 && gm.redGold >= 15 || nameID == "healer")
                         {
-                            if (isHealer == true) unit.healHighlight.SetActive(true);
-                            else if (isArmorer == true) unit.armorHightlight.SetActive(true);
+                            if (nameID == "healer") unit.healHighlight.SetActive(true);
+                            else if (nameID == "armorer") unit.armorHightlight.SetActive(true);
                             alliesInRange.Add(unit);
                         }
                     }
@@ -736,15 +728,15 @@ public class Unit : MonoBehaviour
         {
             unit.anim.SetTrigger("Left");
         }
-        if (thisTransform.position.y < facingTransform.position.y && unit.isArcher != true && unit.isNox != true && isBuffing != true)
+        if (thisTransform.position.y < facingTransform.position.y && unit.nameID != "archer" && unit.nameID != "nox" && isBuffing != true)
         {
             unit.anim.SetTrigger("Up");
         }
-        if (thisTransform.position.y > facingTransform.position.y && unit.isArcher != true && unit.isNox != true && isBuffing != true)
+        if (thisTransform.position.y > facingTransform.position.y && unit.nameID != "archer" && unit.nameID != "nox" && isBuffing != true)
         {
             unit.anim.SetTrigger("Down");
         }
-        if (thisTransform.position.x == facingTransform.transform.position.x && unit.isArcher == true)
+        if (thisTransform.position.x == facingTransform.transform.position.x && unit.nameID != "archer")
         {
             unit.anim.SetTrigger("Right");
         }

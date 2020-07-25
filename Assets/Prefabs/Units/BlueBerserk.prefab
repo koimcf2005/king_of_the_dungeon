@@ -732,14 +732,7 @@ MonoBehaviour:
   hasBuffed: 0
   price: 0
   playerNumber: 1
-  isArcher: 0
-  isBrute: 0
-  isHealer: 0
-  isElite: 0
-  isKing: 0
-  isThief: 0
-  isBerserk: 1
-  isArmorer: 0
+  nameID: berserk
   isCrystal: 0
   isInstance: 0
   spawnedFromCard: 0
