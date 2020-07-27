@@ -9,6 +9,8 @@ public class Deck : MonoBehaviour
     List<int> redList = new List<int>() { 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 };
     public bool[] cardsInBlueSlot;
     public bool[] cardsInRedSlot;
+    public bool cardInBlueHeroSlot;
+    public bool cardInRedHeroSlot;
     public GameObject[] slotPos;
     public GameObject deckSprite;
     public GameObject blueCards;
@@ -37,7 +39,6 @@ public class Deck : MonoBehaviour
             {
                 card.slotInDeck = UniqueRandomRed();
             }
-            if (card.isInDeck == false && gameHasStarted == true) Destroy(card.gameObject);
         }
 
         /**if (gameHasStarted == false)

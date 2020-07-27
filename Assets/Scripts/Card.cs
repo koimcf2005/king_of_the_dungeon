@@ -6,14 +6,17 @@ public class Card : MonoBehaviour
 {
     public bool isDragging;
     public bool isSpell;
+    public bool isHero;
     private bool returnHome;
     private bool hasN;
     public bool isInDeck;
+    public bool isInDeckAsHero;
     public int slotInDeck;
     public int cardNumber;
     public int price;
     private float hoverAmount;
     public bool[] isOverSlot;
+    public bool isOverHeroSlot;
     public Vector3 returnPos;
     public Vector3 normPos;
     private Vector3 normScale;
@@ -53,9 +56,10 @@ public class Card : MonoBehaviour
         }
 
         GameObject slot = GameObject.Find("Slot (" + order(isOverSlot, true).ToString() + ")");
+        GameObject heroSlot = GameObject.Find("Slot (10)");
         if (deck.gameHasStarted == false)
         {
-            if (count(isOverSlot, true) == 1)
+            if (count(isOverSlot, true) == 1 && isHero == false)
             {
                 foreach (Card cards in FindObjectsOfType<Card>())
                 {
@@ -64,6 +68,17 @@ public class Card : MonoBehaviour
                 isDragging = false;
                 isInDeck = true;
                 transform.position = slot.transform.position + new Vector3(0, 0, returnPos.z);
+                
+            }
+            else if (count(isOverSlot, true) == 0 && isOverHeroSlot == true && isHero == true)
+            {
+                foreach (Card cards in FindObjectsOfType<Card>())
+                {
+                    if (cards.transform.position.x == heroSlot.transform.position.x && cards.transform.position.y == heroSlot.transform.position.y) cards.returnHome = true;
+                }
+                isDragging = false;
+                isInDeckAsHero = true;
+                transform.position = heroSlot.transform.position + new Vector3(0, 0, returnPos.z);
             }
             else
             {
@@ -144,6 +159,7 @@ public class Card : MonoBehaviour
         if (collision.name == "Slot (7)") isOverSlot[7] = true;
         if (collision.name == "Slot (8)") isOverSlot[8] = true;
         if (collision.name == "Slot (9)") isOverSlot[9] = true;
+        if (collision.name == "Slot (10)") isOverHeroSlot = true;
     }
     private void OnTriggerExit2D(Collider2D collision)
     {
@@ -157,11 +173,13 @@ public class Card : MonoBehaviour
         if (collision.name == "Slot (7)") isOverSlot[7] = false;
         if (collision.name == "Slot (8)") isOverSlot[8] = false;
         if (collision.name == "Slot (9)") isOverSlot[9] = false;
-
+        if (collision.name == "Slot (10)") isOverHeroSlot = false;
     }
 
     void Update()
     {
+        if (isInDeckAsHero == true && cardNumber == 1) deck.cardInBlueHeroSlot = true;
+        if (isInDeckAsHero == true && cardNumber == 2) deck.cardInRedHeroSlot = true;
         movePositions = new Vector3(Mathf.Round(transform.position.x), Mathf.Round(transform.position.y - 0.5f), 10);
         foreach (Card card in FindObjectsOfType<Card>())
         {
@@ -190,6 +208,9 @@ public class Card : MonoBehaviour
                 }
             }
             isInDeck = false;
+            isInDeckAsHero = false;
+            if (isHero && cardNumber == 1) deck.cardInBlueHeroSlot = false;
+            if (isHero && cardNumber == 2) deck.cardInRedHeroSlot = false;
 
             if (isSpell == true && deck.gameHasStarted == true && cardNumber == 1 && price <= gm.blueGold || isSpell == true && deck.gameHasStarted == true && cardNumber == 2 && price <= gm.redGold)
             {
@@ -224,6 +245,9 @@ public class Card : MonoBehaviour
         if (returnHome == true)
         {
             isInDeck = false;
+            isInDeckAsHero = false;
+            if (isHero && cardNumber == 1) deck.cardInBlueHeroSlot = false;
+            if (isHero && cardNumber == 2) deck.cardInRedHeroSlot = false;
             if (cardNumber == 1)
             {
                 deck.cardsInBlueSlot[order(isOverSlot, true)] = false;
@@ -239,7 +263,7 @@ public class Card : MonoBehaviour
             else returnHome = false;
         }
 
-        if (isInDeck == true)
+        if (isInDeck == true || isInDeckAsHero == true)
         {
             transform.localScale = normScale + Vector3.one * 0.3f + Vector3.one * hoverAmount / 2;
             transform.position = new Vector3(transform.position.x, transform.position.y, -0.1f);

@@ -378,6 +378,7 @@ MonoBehaviour:
   price: 0
   playerNumber: 1
   nameID: king
+  isHero: 1
   isCrystal: 0
   isInstance: 0
   spawnedFromCard: 0

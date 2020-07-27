@@ -14,33 +14,33 @@ public class CoinColumn : MonoBehaviour
 
     GameMaster gm;
 
-    public void CheckColumnStatus(Unit king, bool can)
+    public void CheckColumnStatus(Unit hero, bool can)
     {
 
         canSpawnPar = can;
 
-        foreach (Unit otherKing in FindObjectsOfType<Unit>())
+        foreach (Unit otherHero in FindObjectsOfType<Unit>())
         {
-            if (king.nameID == "king")
+            if (hero.isHero == true)
             {
-                if (Mathf.Abs(king.transform.position.x - transform.position.x) + Mathf.Abs(king.transform.position.y - transform.position.y) <= 1)
+                if (Mathf.Abs(hero.transform.position.x - transform.position.x) + Mathf.Abs(hero.transform.position.y - transform.position.y) <= 1)
                 {
-                    GetComponentInChildren<SpriteRenderer>().sprite = ColumnSprites[king.playerNumber - 1];
-                    GetComponentInChildren<UnityEngine.Experimental.Rendering.Universal.Light2D>().color = LightColors[king.playerNumber - 1];
+                    GetComponentInChildren<SpriteRenderer>().sprite = ColumnSprites[hero.playerNumber - 1];
+                    GetComponentInChildren<UnityEngine.Experimental.Rendering.Universal.Light2D>().color = LightColors[hero.playerNumber - 1];
                     GetComponentInChildren<UnityEngine.Experimental.Rendering.Universal.Light2D>().intensity = 1;
-                    columnNumber = king.playerNumber;
-                    if (canSpawnPar == true) Instantiate(pars[king.playerNumber - 1], transform.position, Quaternion.identity); canSpawnPar = false;
+                    columnNumber = hero.playerNumber;
+                    if (canSpawnPar == true) Instantiate(pars[hero.playerNumber - 1], transform.position, Quaternion.identity); canSpawnPar = false;
                 }
-                else if (Mathf.Abs(otherKing.transform.position.x - transform.position.x) + Mathf.Abs(otherKing.transform.position.y - transform.position.y) <= 1 && otherKing.nameID == "king")
+                else if (Mathf.Abs(otherHero.transform.position.x - transform.position.x) + Mathf.Abs(otherHero.transform.position.y - transform.position.y) <= 1 && otherHero.isHero == true)
                 {
 
                     if (canSpawnPar == true)
                     {
-                        Instantiate(pars[otherKing.playerNumber - 1], transform.position, Quaternion.identity); canSpawnPar = false;
-                        GetComponentInChildren<SpriteRenderer>().sprite = ColumnSprites[otherKing.playerNumber - 1];
-                        GetComponentInChildren<UnityEngine.Experimental.Rendering.Universal.Light2D>().color = LightColors[otherKing.playerNumber - 1];
+                        Instantiate(pars[otherHero.playerNumber - 1], transform.position, Quaternion.identity); canSpawnPar = false;
+                        GetComponentInChildren<SpriteRenderer>().sprite = ColumnSprites[otherHero.playerNumber - 1];
+                        GetComponentInChildren<UnityEngine.Experimental.Rendering.Universal.Light2D>().color = LightColors[otherHero.playerNumber - 1];
                         GetComponentInChildren<UnityEngine.Experimental.Rendering.Universal.Light2D>().intensity = 1;
-                        columnNumber = otherKing.playerNumber;
+                        columnNumber = otherHero.playerNumber;
                     }
                 }
             }

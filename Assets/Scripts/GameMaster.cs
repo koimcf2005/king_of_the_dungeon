@@ -7,6 +7,8 @@ public class GameMaster : MonoBehaviour
 {
 
     public Unit selectedUnit;
+    public Unit blueHero;
+    public Unit redHero;
 
     public int playerTurn = 1;
     public int movesLeft = 3;

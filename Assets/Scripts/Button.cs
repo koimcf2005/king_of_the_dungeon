@@ -17,21 +17,23 @@ public class Button : MonoBehaviour
     public GameObject scene;
 
     Deck deck;
+    GameMaster gm;
     Animator camAnim;
 
     private void Start()
     {
+        gm = FindObjectOfType<GameMaster>();
         deck = FindObjectOfType<Deck>();
         camAnim = FindObjectOfType<Camera>().GetComponent<Animator>();
     }
 
     private void Update()
     {
-        if (isStartButton == true && deck.count(deck.cardsInBlueSlot, true) == 10 && deck.count(deck.cardsInRedSlot, true) == 10)
+        if (isStartButton == true && deck.count(deck.cardsInBlueSlot, true) == 10 && deck.count(deck.cardsInRedSlot, true) == 10 && deck.cardInBlueHeroSlot == true && deck.cardInRedHeroSlot == true)
         {
             GetComponent<SpriteRenderer>().color = Color.black;
         }
-        else if (isStartButton == true && deck.count(deck.cardsInBlueSlot, true) != 10 || isStartButton == true && deck.count(deck.cardsInRedSlot, true) != 10)
+        else if (isStartButton == true && deck.count(deck.cardsInBlueSlot, true) != 10 || isStartButton == true && deck.count(deck.cardsInRedSlot, true) != 10 && deck.cardInBlueHeroSlot == false && deck.cardInRedHeroSlot == false)
         {
             GetComponent<SpriteRenderer>().color = Color.gray;
         }
@@ -57,7 +59,7 @@ public class Button : MonoBehaviour
             redDeckBuilder.SetActive(false);
             redCards.SetActive(false);
         }
-        if (isStartButton == true && deck.count(deck.cardsInBlueSlot, true) == 10 && deck.count(deck.cardsInRedSlot, true) == 10 && Input.GetMouseButtonDown(0))
+        if (isStartButton == true && deck.count(deck.cardsInBlueSlot, true) == 10 && deck.count(deck.cardsInRedSlot, true) == 10 && deck.cardInBlueHeroSlot == true && deck.cardInRedHeroSlot == true && Input.GetMouseButtonDown(0))
         {
             transform.localScale = Vector2.one;
             scene.SetActive(true);
@@ -71,6 +73,9 @@ public class Button : MonoBehaviour
             foreach (Card card in FindObjectsOfType<Card>())
             {
                 card.transform.position = deck.deckSprite.transform.position;
+                if (card.isHero == true && card.cardNumber == 1 && card.isInDeckAsHero == true) gm.blueHero = card.unit;
+                if (card.isHero == true && card.cardNumber == 2 && card.isInDeckAsHero == true) gm.redHero = card.unit;
+                if (card.isHero == true && card.isInDeckAsHero == false) Destroy(card.unit);
             }
         }
         else if (Input.GetMouseButtonDown(0) && isStartButton == true) camAnim.SetTrigger("Shake");

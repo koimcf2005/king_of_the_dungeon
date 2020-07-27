@@ -21,6 +21,7 @@ public class Unit : MonoBehaviour
     [Space]
     [Header("IDs & Unit Type Bools")]
     public string nameID;
+    public bool isHero;
     public bool isCrystal;
     public bool isInstance;
     public bool spawnedFromCard;
@@ -93,7 +94,12 @@ public class Unit : MonoBehaviour
         gm = FindObjectOfType<GameMaster>();
         anim = GetComponentInChildren<Animator>();
         camAnim = FindObjectOfType<Camera>().GetComponent<Animator>();
-        if (isInstance == false) StartCoroutine(Spawn(price));
+        if (isInstance == false && isHero == false) StartCoroutine(Spawn(price));
+        else if (isHero == true)
+        {
+            anim.SetTrigger("Spawn");
+            isAttacking = false;
+        }
         maxHealth = health;
         normAttackDmg = attackDamage;
         gm.ResetTiles();
@@ -317,13 +323,14 @@ public class Unit : MonoBehaviour
 
         gm.selectedUnit.anim.SetTrigger("Attack");
 
-        if (gm.selectedUnit.nameID != "nox" && gm.selectedUnit.nameID != "archer")
+        if (gm.selectedUnit.nameID != "nox" && gm.selectedUnit.nameID != "archer" && gm.selectedUnit.nameID != "necromancer")
         {
             yield return new WaitForSeconds(0.66f);
         }
         else // Arrow Spawning ******************************************************************************************************
         {
-            yield return new WaitForSeconds(1.4f);
+            if (gm.selectedUnit.nameID != "necromancer") yield return new WaitForSeconds(1.4f);
+            if (gm.selectedUnit.nameID == "necromancer") yield return new WaitForSeconds(0.66f);
             camAnim.SetTrigger("Shake");
             SpawnEffect arrowInstance = Instantiate(gm.selectedUnit.arrow, gm.selectedUnit.transform.position, Quaternion.identity);
             arrowInstance.arcHeight = 4;
@@ -447,10 +454,11 @@ public class Unit : MonoBehaviour
 
             enemy.anim.SetTrigger("Attack");
 
-            if (enemy.nameID == "archer" && enemy.nameID == "nox") yield return new WaitForSeconds(0.66f);
+            if (enemy.nameID != "archer" && enemy.nameID != "nox" && enemy.nameID != "necromancer") yield return new WaitForSeconds(0.66f);
             else // Enemy arrow spawning *************************************************************************************
             {
-                yield return new WaitForSeconds(1.4f);
+                if (gm.selectedUnit.nameID != "necromancer") yield return new WaitForSeconds(1.4f);
+                if (gm.selectedUnit.nameID == "necromancer") yield return new WaitForSeconds(0.66f);
                 gm.selectedUnit.camAnim.SetTrigger("Shake");
                 SpawnEffect arrowInstance = Instantiate(enemy.arrow, enemy.transform.position, Quaternion.identity);
                 arrowInstance.arcHeight = 4;
