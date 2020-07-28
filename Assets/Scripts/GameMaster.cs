@@ -9,17 +9,25 @@ public class GameMaster : MonoBehaviour
     public Unit selectedUnit;
     public Unit blueHero;
     public Unit redHero;
+    public Unit blueCrystal;
+    public Unit redCrystal;
 
     public int playerTurn = 1;
     public int movesLeft = 3;
     public int blueGold;
     public int redGold;
+    public int cardsLeft = 3;
 
     public GameObject highlight;
     public GameObject turnIndicator;
     public GameObject coinColumns;
     public Text blueGoldText;
     public Text redGoldText;
+    public Text blueCrystalText;
+    public Text redCrystalText;
+    public Text blueHeroText;
+    public Text redHeroText;
+    public Text cardsLeftText;
 
     public GameObject MovesBanner;
     public HealthIndicator healthIndicator;
@@ -47,6 +55,16 @@ public class GameMaster : MonoBehaviour
 
     private void Update()
     {
+        if (selectedUnit != null)
+        {
+            highlight.SetActive(true);
+            highlight.transform.position = selectedUnit.transform.position + new Vector3(0, 0, -8);
+        }
+        else
+        {
+            highlight.SetActive(false);
+        }
+
         foreach (Card card in FindObjectsOfType<Card>() as Card[])
         {
             if (card.isDragging == true)
@@ -70,16 +88,6 @@ public class GameMaster : MonoBehaviour
             }
         }
 
-        if (selectedUnit != null)
-        {
-            highlight.SetActive(true);
-            highlight.transform.position = selectedUnit.transform.position + new Vector3(0, 0, -8);
-        }
-        else
-        {
-            highlight.SetActive(false);
-        }
-
         if (blueGold >= 1000) blueGold = 999;
         if (redGold >= 1000) redGold = 999;
 
@@ -89,6 +97,16 @@ public class GameMaster : MonoBehaviour
         if (redGold < 10) redGoldText.text = "  " + redGold.ToString();
         else if (redGold < 100) redGoldText.text = " " + redGold.ToString();
         else if (redGold < 1000) redGoldText.text = redGold.ToString();
+
+        cardsLeftText.text = cardsLeft.ToString();
+        blueCrystalText.text = blueCrystal.health.ToString();
+        if (redCrystal.health >= 10) redCrystalText.text = redCrystal.health.ToString();
+        else if (redCrystal.health < 10) redCrystalText.text = " " + redCrystal.health.ToString();
+
+        if (blueHero.health >= 10) blueHeroText.text = blueHero.health.ToString();
+        else if (blueHero.health < 10) blueHeroText.text = " " + blueHero.health.ToString();
+        if (redHero.health >= 10) redHeroText.text = redHero.health.ToString();
+        else if (redHero.health < 10) redHeroText.text = " " + redHero.health.ToString();
     }
 
     public void UpdateMovesLeft()
@@ -114,7 +132,7 @@ public class GameMaster : MonoBehaviour
     public IEnumerator EndTurn()
     {
         canTurnChange = false;
-
+        cardsLeft = 3;
         foreach (Unit unit in FindObjectsOfType<Unit>())
         {
             unit.hasMoved = false;

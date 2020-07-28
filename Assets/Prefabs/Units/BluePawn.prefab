@@ -545,7 +545,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8387875126850608359}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0.4, z: 0}
+  m_LocalPosition: {x: 0, y: 0.4, z: 0.01}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 8387875126916761584}
@@ -716,8 +716,8 @@ GameObject:
   m_Component:
   - component: {fileID: 8387875127311524270}
   - component: {fileID: 7455134572877372282}
-  - component: {fileID: 1061346525}
-  - component: {fileID: 1061346527}
+  - component: {fileID: 4629349619378899616}
+  - component: {fileID: 8626284593356903025}
   m_Layer: 8
   m_Name: BluePawn
   m_TagString: Untagged
@@ -766,6 +766,7 @@ MonoBehaviour:
   price: 0
   playerNumber: 1
   nameID: pawn
+  isHero: 0
   isCrystal: 0
   isInstance: 0
   spawnedFromCard: 0
@@ -783,6 +784,7 @@ MonoBehaviour:
   isEnraged: 0
   isWeakened: 0
   health: 6
+  maxHealth: 0
   shieldsLeft: 0
   defenceDamage: 2
   normArmor: 1
@@ -814,7 +816,20 @@ MonoBehaviour:
   arrow: {fileID: 2345532328245530976, guid: 2dbe59a8eb80f3a4bbb91bd82d636075, type: 3}
   camAnim: {fileID: 0}
   isAttacking: 1
---- !u!61 &1061346525
+--- !u!114 &4629349619378899616
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8387875127311524265}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4310f40b34e936b4ea8c02bf4d5a0f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverAmount: 0.15
+--- !u!61 &8626284593356903025
 BoxCollider2D:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -838,21 +853,8 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 1, y: 1}
+  m_Size: {x: 0.85, y: 0.85}
   m_EdgeRadius: 0
---- !u!114 &1061346527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8387875127311524265}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 4310f40b34e936b4ea8c02bf4d5a0f5c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  hoverAmount: 0.15
 --- !u!1 &8387875127378746320
 GameObject:
   m_ObjectHideFlags: 0

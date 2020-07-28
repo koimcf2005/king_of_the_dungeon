@@ -103,6 +103,7 @@ public class Card : MonoBehaviour
                     }
                     slotInDeck = 9;
                     returnPos = deck.deckSprite.transform.position;
+                    gm.cardsLeft -= 1;
                 }
 
                 else if (isSpell == true && movePositions.x >= -7 && movePositions.x <= 6 && movePositions.y >= 9 && movePositions.y <= 15 && cardNumber == 1 && price <= gm.blueGold ||
@@ -288,7 +289,7 @@ public class Card : MonoBehaviour
             N1.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 0f, solidDistance / dist);
             N2.GetComponent<SpriteRenderer>().color = new Color(0f, 0f, 0f, solidDistance / dist);
         }
-        if (deck.gameHasStarted == true && isDragging == false && cardNumber == gm.playerTurn)
+        if (deck.gameHasStarted == true && isDragging == false && cardNumber == gm.playerTurn && gm.cardsLeft > 0)
         {
             if (slotInDeck <= 4)
             {
@@ -299,10 +300,11 @@ public class Card : MonoBehaviour
                 transform.position = Vector3.MoveTowards(transform.position, deck.deckSprite.transform.position, Time.deltaTime * 25);
             }
         }
-        else if (deck.gameHasStarted == true && isDragging == false && cardNumber != gm.playerTurn)
+        else if (deck.gameHasStarted == true && isDragging == false && cardNumber != gm.playerTurn || gm.cardsLeft <= 0)
         {
             transform.position = Vector3.MoveTowards(transform.position, deck.deckSprite.transform.position, Time.deltaTime * 25);
         }
+
         if (transform.position == deck.slotPos[slotInDeck].transform.position && deck.gameHasStarted == true)
         {
             returnPos = deck.slotPos[slotInDeck].transform.position;

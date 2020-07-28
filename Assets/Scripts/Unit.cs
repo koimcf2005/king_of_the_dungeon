@@ -49,7 +49,7 @@ public class Unit : MonoBehaviour
     [Space]
     [Header("Health Stats")]
     public int health;
-    private int maxHealth;
+    public int maxHealth;
     public int shieldsLeft;
     public int defenceDamage;
     public int normArmor;
@@ -197,6 +197,11 @@ public class Unit : MonoBehaviour
     private void OnMouseDown()
     {
         alliesInRange.Clear();
+        if (attackHighlight.activeInHierarchy == false)
+        {
+            healthIndicator.transform.position = new Vector3(25, 12, 0);
+            ResetAttackHighlights();
+        }
 
         foreach (Unit units in FindObjectsOfType<Unit>()) // Checks if the unit can be healed
         {
@@ -215,36 +220,30 @@ public class Unit : MonoBehaviour
                 return;
             }
         }
-        if (playerNumber != gm.playerTurn && attackHighlight.activeInHierarchy != true) // Checks if the unit team is the same as the players
-        {
-            camAnim.SetTrigger("Shake");
-        }
-        
-        healthIndicator.transform.position = new Vector3(12, 12, 0);
-        ResetAttackHighlights();
 
-        if (selected == true) // Selects and deselects the unit
+        if (selected == true || isCrystal == true) // Selects and deselects the unit
         {
             selected = false;
             gm.selectedUnit = null;
             gm.ResetTiles();
             alliesInRange.Clear();
         }
-        else
+        else if (attackHighlight.activeInHierarchy == false)
         {
+            if (gm.selectedUnit != null)
+            {
+                gm.selectedUnit.selected = false;
+            }
+                selected = true;
+                gm.selectedUnit = this;
+                gm.ResetTiles();
+
             if (playerNumber == gm.playerTurn)
             {
-                if (gm.selectedUnit != null)
-                {
-                    gm.selectedUnit.selected = false;
-                }
-
-                    selected = true;
-                    gm.selectedUnit = this;
-                    gm.ResetTiles();
-                    GetEnemies();
-                    GetWalkableTiles();
+                GetEnemies();
+                GetWalkableTiles();
             }
+
         }
         Collider2D col = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.15f); // Gets the enemy
         Unit unit = col.GetComponent<Unit>();
@@ -254,6 +253,7 @@ public class Unit : MonoBehaviour
             {
                 gm.selectedUnit.StartCoroutine(Attack(unit));
                 gm.selectedUnit.attacksLeft -= 1;
+                ResetAttackHighlights();
                 if (gm.selectedUnit.attacksLeft <= 0) gm.selectedUnit.hasAttacked = true;
             }
         }
@@ -706,7 +706,7 @@ public class Unit : MonoBehaviour
 
     private void OnMouseOver()
     {
-        if (this.isCrystal == false)
+        if (this.isCrystal == false && this.isHero == false)
         {
             if (this.playerNumber == 1)
             {
@@ -723,7 +723,7 @@ public class Unit : MonoBehaviour
 
     private void OnMouseExit()
     {
-        healthIndicator.transform.position = new Vector3(16, 12, 0);
+        healthIndicator.transform.position = new Vector3(25, 12, 0);
     }
 
     public void UpdateDirection(Transform thisTransform, Transform facingTransform, Unit unit, bool isBuffing)
