@@ -62,13 +62,13 @@ public class Button : MonoBehaviour
         if (isStartButton == true && deck.count(deck.cardsInBlueSlot, true) == 10 && deck.count(deck.cardsInRedSlot, true) == 10 && deck.cardInBlueHeroSlot == true && deck.cardInRedHeroSlot == true && Input.GetMouseButtonDown(0))
         {
             transform.localScale = Vector2.one;
-            scene.SetActive(true);
             blueDeckBuilder.SetActive(false);
             blueCards.SetActive(true);
             blueBlankCards.SetActive(false);
             redDeckBuilder.SetActive(false);
             redCards.SetActive(true);
             redBlankCards.SetActive(false);
+            scene.SetActive(true);
             Invoke("StartGame", 4.0f);
             foreach (Card card in FindObjectsOfType<Card>())
             {

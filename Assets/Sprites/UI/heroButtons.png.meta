@@ -1,25 +1,19 @@
 fileFormatVersion: 2
-guid: caf6556ec128d1141ad49268adb397c4
+guid: 4577e60c42213d349bd291853abd4dc2
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -5870010302277885200
-    second: UI_Text_0
+      213: 3606369714775574814
+    second: heroButtons_0
   - first:
-      213: -4692482229296665013
-    second: UI_Text_1
+      213: 8428668233055308019
+    second: heroButtons_1
   - first:
-      213: -1902215177605181593
-    second: UI_Text_2
+      213: -3100717225077361249
+    second: heroButtons_2
   - first:
-      213: -5533409212760037694
-    second: UI_Text_3
-  - first:
-      213: -8209531936398005965
-    second: UI_Text_4
-  - first:
-      213: -4416935500840010543
-    second: UI_Text_5
+      213: -744708536772761466
+    second: heroButtons_3
   externalObjects: {}
   serializedVersion: 11
   mipmaps:
@@ -63,7 +57,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 15
+  spritePixelsToUnits: 100
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -105,118 +99,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: UI_Text_0
+      name: heroButtons_0
       rect:
         serializedVersion: 2
         x: 0
-        y: 29
-        width: 70
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 0f2e7d01bb8898ea0800000000000000
-      internalID: -5870010302277885200
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_Text_1
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 23
-        width: 35
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: b4e60f73644f0eeb0800000000000000
-      internalID: -4692482229296665013
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_Text_2
-      rect:
-        serializedVersion: 2
-        x: 0
-        y: 12
-        width: 70
-        height: 10
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 76f8c74df59f995e0800000000000000
-      internalID: -1902215177605181593
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_Text_3
-      rect:
-        serializedVersion: 2
-        x: 19
-        y: 6
-        width: 31
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2c6609463a16533b0800000000000000
-      internalID: -5533409212760037694
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_Text_4
-      rect:
-        serializedVersion: 2
-        x: 14
-        y: 0
-        width: 37
-        height: 5
-      alignment: 0
-      pivot: {x: 0.5, y: 0.5}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 339a5c62332e11e80800000000000000
-      internalID: -8209531936398005965
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: UI_Text_5
-      rect:
-        serializedVersion: 2
-        x: 21
-        y: 39
-        width: 29
-        height: 5
+        y: 87
+        width: 14
+        height: 14
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -224,8 +113,71 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: 0
       bones: []
-      spriteID: 1dc7e9c5094e3b2c0800000000000000
-      internalID: -4416935500840010543
+      spriteID: e19cce1f5266c0230800000000000000
+      internalID: 3606369714775574814
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: heroButtons_1
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 87
+        width: 14
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3f881e8d915a8f470800000000000000
+      internalID: 8428668233055308019
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: heroButtons_2
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 72
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f953452bc1a08f4d0800000000000000
+      internalID: -3100717225077361249
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: heroButtons_3
+      rect:
+        serializedVersion: 2
+        x: 15
+        y: 72
+        width: 13
+        height: 14
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 688657c08834aa5f0800000000000000
+      internalID: -744708536772761466
       vertices: []
       indices: 
       edges: []

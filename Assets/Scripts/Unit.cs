@@ -245,7 +245,7 @@ public class Unit : MonoBehaviour
             }
 
         }
-        Collider2D col = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.15f); // Gets the enemy
+        Collider2D col = Physics2D.OverlapCircle(Camera.main.ScreenToWorldPoint(Input.mousePosition), 0.000001f); // Gets the enemy
         Unit unit = col.GetComponent<Unit>();
         if (gm.selectedUnit != null)
         {

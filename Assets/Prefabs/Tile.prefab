@@ -251,7 +251,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3bc49ab9a19ea14469086eb10d09dfda, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  rend: {fileID: 0}
+  rend: {fileID: 7515075742072917324}
   tileGraphics:
   - {fileID: -781294158744790408, guid: 9070b1e8ab5f3ad4f8f85fcea94ce28f, type: 3}
   - {fileID: -781294158744790408, guid: 9070b1e8ab5f3ad4f8f85fcea94ce28f, type: 3}

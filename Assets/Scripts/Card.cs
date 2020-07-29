@@ -304,10 +304,12 @@ public class Card : MonoBehaviour
         {
             transform.position = Vector3.MoveTowards(transform.position, deck.deckSprite.transform.position, Time.deltaTime * 25);
         }
-
-        if (transform.position == deck.slotPos[slotInDeck].transform.position && deck.gameHasStarted == true)
+        if (deck.gameHasStarted == true && cardNumber == gm.playerTurn)
         {
-            returnPos = deck.slotPos[slotInDeck].transform.position;
+            if (transform.position == deck.slotPos[slotInDeck].transform.position)
+            {
+                returnPos = deck.slotPos[slotInDeck].transform.position;
+            }
         }
     }
 

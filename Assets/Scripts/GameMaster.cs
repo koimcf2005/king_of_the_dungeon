@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.Experimental.Rendering.LWRP;
 
 public class GameMaster : MonoBehaviour
 {
@@ -21,6 +22,7 @@ public class GameMaster : MonoBehaviour
     public GameObject highlight;
     public GameObject turnIndicator;
     public GameObject coinColumns;
+
     public Text blueGoldText;
     public Text redGoldText;
     public Text blueCrystalText;
@@ -28,6 +30,7 @@ public class GameMaster : MonoBehaviour
     public Text blueHeroText;
     public Text redHeroText;
     public Text cardsLeftText;
+    public Text movesLeftText;
 
     public GameObject MovesBanner;
     public HealthIndicator healthIndicator;
@@ -88,8 +91,8 @@ public class GameMaster : MonoBehaviour
             }
         }
 
-        if (blueGold >= 1000) blueGold = 999;
-        if (redGold >= 1000) redGold = 999;
+        if (blueGold >= 500) blueGold = 500;
+        if (redGold >= 500) redGold = 500;
 
         if (blueGold < 10) blueGoldText.text = "  " + blueGold.ToString();
         else if (blueGold < 100) blueGoldText.text = " " + blueGold.ToString();
@@ -99,6 +102,7 @@ public class GameMaster : MonoBehaviour
         else if (redGold < 1000) redGoldText.text = redGold.ToString();
 
         cardsLeftText.text = cardsLeft.ToString();
+        movesLeftText.text = movesLeft.ToString();
         blueCrystalText.text = blueCrystal.health.ToString();
         if (redCrystal.health >= 10) redCrystalText.text = redCrystal.health.ToString();
         else if (redCrystal.health < 10) redCrystalText.text = " " + redCrystal.health.ToString();
