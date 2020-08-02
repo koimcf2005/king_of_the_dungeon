@@ -56,7 +56,7 @@ public class UnitStatsScroll : MonoBehaviour
 
             tileSpeedText.text = gm.selectedUnit.tileSpeed.ToString();
 
-            unitSprite.GetComponent<SpriteRenderer>().sprite = gm.selectedUnit.GetComponentInChildren<SpriteRenderer>().sprite;
+            unitSprite.GetComponent<SpriteRenderer>().sprite = gm.selectedUnit.gameObject.transform.Find("Body").GetComponent<SpriteRenderer>().sprite;
 
         }
     }

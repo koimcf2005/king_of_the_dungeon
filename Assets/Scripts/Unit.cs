@@ -18,6 +18,9 @@ public class Unit : MonoBehaviour
 
     public int playerNumber;
 
+    public bool hasGraveEffect;
+    public Unit skeleton;
+
     [Space]
     [Header("IDs & Unit Type Bools")]
     public string nameID;
@@ -78,6 +81,7 @@ public class Unit : MonoBehaviour
     public ParticleSystem yellEffect;
     public GameObject poisonEffect;
     public GameObject weaknessEffect;
+    public GameObject graveEffect;
     [Space]
     [Header("Rand")]
     public GameObject rayCollider;
@@ -94,8 +98,8 @@ public class Unit : MonoBehaviour
         gm = FindObjectOfType<GameMaster>();
         anim = GetComponentInChildren<Animator>();
         camAnim = FindObjectOfType<Camera>().GetComponent<Animator>();
-        if (isInstance == false && isHero == false) StartCoroutine(Spawn(price));
-        else if (isHero == true)
+        if (isInstance == false && isHero == false && nameID != "skeleton") StartCoroutine(Spawn(price));
+        else if (isHero == true || nameID == "skeleton")
         {
             anim.SetTrigger("Spawn");
             isAttacking = false;
@@ -185,6 +189,15 @@ public class Unit : MonoBehaviour
         else
         {
             poisonEffect.SetActive(false);
+        }
+
+        if (hasGraveEffect == true)
+        {
+            graveEffect.SetActive(true);
+        }
+        else
+        {
+            graveEffect.SetActive(false);
         }
 
         if (isEnraged == true && isWeakened == true)
@@ -374,6 +387,7 @@ public class Unit : MonoBehaviour
 
         if (enemy.health <= 0)
         {
+            if (enemy.hasGraveEffect == true) Instantiate(enemy.skeleton, enemy.transform.position, Quaternion.identity);
             Instantiate(deathPar, enemy.transform.position, Quaternion.identity);
             Destroy(enemy.gameObject);
             gm.selectedUnit.GetWalkableTiles();
@@ -532,6 +546,8 @@ public class Unit : MonoBehaviour
                         coin.Play();
                     }
                 }
+
+                if (gm.selectedUnit.hasGraveEffect == true) Instantiate(gm.selectedUnit.skeleton, gm.selectedUnit.transform.position, Quaternion.identity);
                 Instantiate(deathPar, transform.position, Quaternion.identity);
                 gm.ResetTiles();
                 Destroy(gm.selectedUnit.gameObject);
@@ -571,7 +587,15 @@ public class Unit : MonoBehaviour
             {
                 if (tile.IsClear() == true)
                 {
-                    tile.Highlight();
+                    int layer_mask = LayerMask.GetMask("RayCollider");
+                    RaycastHit2D ray = Physics2D.Raycast(tile.transform.position, transform.position - tile.transform.position, 100, layer_mask);
+                    Debug.DrawRay(tile.transform.position, transform.position - tile.transform.position, Color.red, 5, false);
+                    Debug.Log(ray.collider.name);
+                    if (ray.collider.gameObject == rayCollider.gameObject)
+                    {
+                        Debug.Log("I HIT THE TARGET!!!");
+                        tile.Highlight();
+                    }
                 }
             }
             else if (isDiagonal && Mathf.Abs(YAbs - XAbs) <= 0 && XAbs <= tileSpeed && YAbs <= tileSpeed)
