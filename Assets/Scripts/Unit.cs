@@ -90,7 +90,7 @@ public class Unit : MonoBehaviour
     [HideInInspector]
     public Animator camAnim;
     public bool isAttacking = true;
-    private Animator anim;
+    public Animator anim;
     GameMaster gm;
 
     private void Start() // START * START * START * START

@@ -1916,6 +1916,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 2435315294672880334, guid: 7f71ff27e6078a14188ac7cac7955134,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 3664162916978374682, guid: 7f71ff27e6078a14188ac7cac7955134,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -2737,6 +2742,11 @@ PrefabInstance:
       value: 
       objectReference: {fileID: 828177303802729478, guid: cbf23ed682eca8b489566876d0c98458,
         type: 3}
+    - target: {fileID: 4862098215790211801, guid: d8f1e63408e15b64bbbb92e665080e77,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 5126582780546229597, guid: d8f1e63408e15b64bbbb92e665080e77,
         type: 3}
       propertyPath: m_IsActive
@@ -5050,6 +5060,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 2435315294672880334, guid: 7f71ff27e6078a14188ac7cac7955134,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 3664162916978374682, guid: 7f71ff27e6078a14188ac7cac7955134,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -6155,6 +6170,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 4017151849512940666, guid: 6676188136d9bd040a4a12ae3aed3822,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 6676188136d9bd040a4a12ae3aed3822, type: 3}
 --- !u!4 &355081077 stripped
@@ -7328,6 +7348,7 @@ GameObject:
   - component: {fileID: 417387008}
   - component: {fileID: 417387010}
   - component: {fileID: 417387011}
+  - component: {fileID: 417387012}
   m_Layer: 0
   m_Name: BlueNecromancerButton
   m_TagString: Untagged
@@ -7427,6 +7448,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityNumber: 1
+--- !u!114 &417387012
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 417387007}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4310f40b34e936b4ea8c02bf4d5a0f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverAmount: 0.15
 --- !u!1 &417886824
 GameObject:
   m_ObjectHideFlags: 0
@@ -8595,6 +8629,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 3132309908947427568, guid: fe5235b2fe0c8ec42bcd32d9f06e3572,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 4065186811408112163, guid: fe5235b2fe0c8ec42bcd32d9f06e3572,
         type: 3}
       propertyPath: m_Name
@@ -10915,6 +10954,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 3132309908947427568, guid: fe5235b2fe0c8ec42bcd32d9f06e3572,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 4065186811408112163, guid: fe5235b2fe0c8ec42bcd32d9f06e3572,
         type: 3}
       propertyPath: m_Name
@@ -12416,6 +12460,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 6345150335940233485, guid: d0aa0653a4f10ca4d84d59721cc9f27f,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0aa0653a4f10ca4d84d59721cc9f27f, type: 3}
 --- !u!4 &719798291 stripped
@@ -15048,6 +15097,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 6630351548595826012, guid: cfb4def5e09e0034fb6592384e2fd278,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfb4def5e09e0034fb6592384e2fd278, type: 3}
 --- !u!4 &875943625 stripped
@@ -18471,6 +18525,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 6938582026482276620, guid: 653aa5d46eaae20438f3dded550a8eaf,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 8311543808282649560, guid: 653aa5d46eaae20438f3dded550a8eaf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -19505,6 +19564,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 3132309908947427568, guid: fe5235b2fe0c8ec42bcd32d9f06e3572,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 4065186811408112163, guid: fe5235b2fe0c8ec42bcd32d9f06e3572,
         type: 3}
       propertyPath: m_Name
@@ -21764,6 +21828,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 3132309908947427568, guid: fe5235b2fe0c8ec42bcd32d9f06e3572,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 4065186811408112163, guid: fe5235b2fe0c8ec42bcd32d9f06e3572,
         type: 3}
       propertyPath: m_Name
@@ -22481,6 +22550,7 @@ GameObject:
   - component: {fileID: 1281693639}
   - component: {fileID: 1281693641}
   - component: {fileID: 1281693642}
+  - component: {fileID: 1281693643}
   m_Layer: 0
   m_Name: RedKingButton
   m_TagString: Untagged
@@ -22580,6 +22650,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityNumber: 2
+--- !u!114 &1281693643
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1281693638}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4310f40b34e936b4ea8c02bf4d5a0f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverAmount: 0.15
 --- !u!1 &1285458142
 GameObject:
   m_ObjectHideFlags: 0
@@ -23079,6 +23162,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 6345150335940233485, guid: d0aa0653a4f10ca4d84d59721cc9f27f,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0aa0653a4f10ca4d84d59721cc9f27f, type: 3}
 --- !u!4 &1327631741 stripped
@@ -23358,6 +23446,7 @@ GameObject:
   - component: {fileID: 1329146148}
   - component: {fileID: 1329146147}
   - component: {fileID: 1329146149}
+  - component: {fileID: 1329146150}
   m_Layer: 0
   m_Name: RedNecromancerButton
   m_TagString: Untagged
@@ -23457,6 +23546,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityNumber: 2
+--- !u!114 &1329146150
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1329146145}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4310f40b34e936b4ea8c02bf4d5a0f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverAmount: 0.15
 --- !u!1 &1329170021
 GameObject:
   m_ObjectHideFlags: 0
@@ -23640,6 +23742,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 6938582026482276620, guid: 653aa5d46eaae20438f3dded550a8eaf,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 8311543808282649560, guid: 653aa5d46eaae20438f3dded550a8eaf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -24766,6 +24873,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 1947383232950645811, guid: d2af02195c68d7842be6d8f5541e308e,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d2af02195c68d7842be6d8f5541e308e, type: 3}
 --- !u!4 &1402941289 stripped
@@ -27313,6 +27425,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 6630351548595826012, guid: cfb4def5e09e0034fb6592384e2fd278,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfb4def5e09e0034fb6592384e2fd278, type: 3}
 --- !u!4 &1545808154 stripped
@@ -30846,6 +30963,7 @@ GameObject:
   - component: {fileID: 1760960240}
   - component: {fileID: 1760960239}
   - component: {fileID: 1760960241}
+  - component: {fileID: 1760960242}
   m_Layer: 0
   m_Name: BlueKingButton
   m_TagString: Untagged
@@ -30945,6 +31063,19 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   abilityNumber: 1
+--- !u!114 &1760960242
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1760960237}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4310f40b34e936b4ea8c02bf4d5a0f5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  hoverAmount: 0.15
 --- !u!1 &1778761707
 GameObject:
   m_ObjectHideFlags: 0
@@ -31194,6 +31325,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 7302259319510309771, guid: e2d4509785076ec469f24596bb39eacd,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 8522099881137447256, guid: e2d4509785076ec469f24596bb39eacd,
         type: 3}
       propertyPath: m_Name
@@ -35498,6 +35634,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 4756706297831940368, guid: 48b0ebf538e5ed84f80946d6cc44fbee,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 5841579612354173891, guid: 48b0ebf538e5ed84f80946d6cc44fbee,
         type: 3}
       propertyPath: m_Name
@@ -37748,6 +37889,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 2435315294672880334, guid: 7f71ff27e6078a14188ac7cac7955134,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 3664162916978374682, guid: 7f71ff27e6078a14188ac7cac7955134,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -38977,6 +39123,18 @@ PrefabInstance:
       objectReference: {fileID: 519420031}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 774b06080dccf6f469429e94bfd1373d, type: 3}
+--- !u!114 &976160549968884623 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 9087122965330595401, guid: 38a088416d457424b9824bc8b9937c95,
+    type: 3}
+  m_PrefabInstance: {fileID: 8329397519963798982}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 7c31398f3594a2b49ad8e91aa7473179, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!212 &997536945560327918
 SpriteRenderer:
   m_ObjectHideFlags: 0
@@ -39407,6 +39565,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 6630351548595826012, guid: cfb4def5e09e0034fb6592384e2fd278,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cfb4def5e09e0034fb6592384e2fd278, type: 3}
 --- !u!4 &1635412896364125329 stripped
@@ -39757,6 +39920,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 6345150335940233485, guid: d0aa0653a4f10ca4d84d59721cc9f27f,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: d0aa0653a4f10ca4d84d59721cc9f27f, type: 3}
 --- !u!4 &1961664610616601896 stripped
@@ -41771,6 +41939,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 4540973577799596516, guid: b6861ec81fd9bb1428bccf7611403d8a,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: b6861ec81fd9bb1428bccf7611403d8a, type: 3}
 --- !u!4 &4684125426060177519
@@ -43275,6 +43448,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 6938582026482276620, guid: 653aa5d46eaae20438f3dded550a8eaf,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 8311543808282649560, guid: 653aa5d46eaae20438f3dded550a8eaf,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -43454,6 +43632,11 @@ PrefabInstance:
       propertyPath: crystalPos
       value: 
       objectReference: {fileID: 5031979086838735396}
+    - target: {fileID: 218533998478255869, guid: 93045ea5c74860e40b8d7a29f67c4c37,
+        type: 3}
+      propertyPath: skeleton
+      value: 
+      objectReference: {fileID: 976160549968884623}
     - target: {fileID: 1160276251165744169, guid: 93045ea5c74860e40b8d7a29f67c4c37,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -53328,7 +53511,7 @@ PrefabInstance:
     - target: {fileID: 7857005265298207901, guid: 38a088416d457424b9824bc8b9937c95,
         type: 3}
       propertyPath: m_LocalPosition.x
-      value: 6
+      value: -14
       objectReference: {fileID: 0}
     - target: {fileID: 7857005265298207901, guid: 38a088416d457424b9824bc8b9937c95,
         type: 3}
